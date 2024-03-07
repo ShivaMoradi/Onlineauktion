@@ -7,6 +7,8 @@ import ContactPage from "../pages/ContactPage.jsx"
 import { GlobalProvider } from './GlobalContext.jsx'
 import Cart from '../pages/Cart.jsx'
 import ShowAuctionPage from "../pages/ShowAuctionPage.jsx"
+import NewAuctionPage from "../pages/NewAuctionPage.jsx"
+
 
 function MyRouter() {
 
@@ -24,6 +26,7 @@ function MyRouter() {
                 <Route path="/contact-page" element={<ContactPage />} />
                 <Route path="/cart-page" element={<Cart />} />
                 <Route path="/show-auction-page" element={<ShowAuctionPage />} />
+                <Route path="/new-auction-page" element={<NewAuctionPage />} />
               </Routes>
             </div>
           </main>
