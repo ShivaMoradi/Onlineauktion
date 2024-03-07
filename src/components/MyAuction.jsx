@@ -21,7 +21,9 @@ function MyAuction() {
       setCars(cars)
 
       const responseAuctions = await fetch('/api/auctions')
-      const auctions = await responseAuctions.json()
+      let auctions = await responseAuctions.json()
+
+      auctions = auctions.sort(compareAuctionsByEndTime)
       console.log(auctions)
       setAuctions(auctions)
 
@@ -55,6 +57,15 @@ function MyAuction() {
     }
 
     return index
+
+  }
+
+  function compareAuctionsByEndTime(a, b) {
+
+    let dateA = Date.parse(a.endTime)
+    let dateB = Date.parse(b.endTime)
+
+    return dateA - dateB
 
   }
 
