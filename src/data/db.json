@@ -232,26 +232,6 @@
       "carId": 5,
       "userId": 4,
       "status": 0
-    },
-    {
-      "id": "12",
-      "title": "2024-03-09T11:21",
-      "startTime": "2024-03-29T11:21",
-      "endTime": "2024-03-07T15:28",
-      "highestBid": "3",
-      "carId": "2",
-      "userId": "1",
-      "status": "0"
-    },
-    {
-      "id": "12",
-      "title": "Kalle",
-      "startTime": "2024-03-29T11:21",
-      "endTime": "2024-03-07T15:28",
-      "highestBid": "3",
-      "carId": "2",
-      "userId": "1",
-      "status": "0"
     }
   ],
   "users": [
