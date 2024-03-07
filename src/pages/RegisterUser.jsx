@@ -1,11 +1,11 @@
 import NewUser from "../components/NewUser.jsx";
-import Login from "../components/Login.jsx";
+import Login from "../components/Login.jsx"
 
 function RegisterUser () {
 
   return (
     <div className="registerForm">
-      <form onSubmit={ NewUser } >
+      <form onSubmit={ NewUser} >
         <br /> 
         <h3>Registration</h3><br/>
         <label>Username:</label><br /><input type="text" name="Username" placeholder="UserName..." /><br />

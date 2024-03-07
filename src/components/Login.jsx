@@ -1,6 +1,10 @@
+import UserPage from "../pages/UserPage"
 function Login () {
+  //alert("test")
+  const user = UserPage()
+  user.push( "/userpage" )
   
-  alert("You are loged in")
 
-}
+  }
+
 export default Login
