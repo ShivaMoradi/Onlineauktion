@@ -11,8 +11,12 @@ function MyNav() {
         <Link to="/cart-page" className="flex-sm-fill flex-grow-1 text-sm-left nav-link active">To Cart</Link>
         <Link to="/contact-page" className="text-sm-right nav-link" >Contact Us</Link>
         <Link to="/show-auction-page" className="text-sm-right nav-link" >Show Current Auction</Link>
+<<<<<<< HEAD
         <Link to="/registering-page" className="text-sm-right nav-link" >Register / Login</Link>
 
+=======
+        <Link to="/userpage" className="text-sm-right nav-link">Userpage</Link>
+>>>>>>> feature/userpage
       </nav>
     </header>
   )
