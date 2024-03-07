@@ -9,6 +9,8 @@ function MyAuction() {
   const [filteredItems, setFilteredItems] = useState([])
   const [bidText, setBidText] = useState("")
   const [auctionIdText, setAuctionIdText] = useState("")
+  const [maxBidText, setMaxBidText] = useState("")
+  const [currDateText, setCurrDateText] = useState("")
 
   useEffect(() => {
 
@@ -114,6 +116,18 @@ function MyAuction() {
 
   }
 
+  function setNewMaxBidText(event) {
+
+    setMaxBidText(event.target.value)
+
+  }
+
+  function setNewCurrDateText(event) {
+
+    setCurrDateText(event.target.value)
+
+  }
+
   function setNewBidText(event) {
 
     const newBidText = event.target.value.toLowerCase()
@@ -138,14 +152,65 @@ function MyAuction() {
 
   }
 
+  function filterMaxBid(event) {
+
+    if (maxBidText <= 0) {
+      return
+    }
+
+    let newAuctionList1 = auctions.filter(item => item.title.toLowerCase().includes(titleText.toLowerCase()))
+    setFilteredItems(newAuctionList1)
+
+    let newAuctionList2 = newAuctionList1.filter(item => item.highestBid <= maxBidText)
+    setFilteredItems(newAuctionList2)
+
+  }
+
+  function getDateFromText(strDate) {
+
+    let newStrDate = strDate.substring(0, 10)
+    let newDate = new Date(Date.parse(newStrDate))
+
+    const formattedDate = newDate.toLocaleDateString('sv-SW', {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit'
+    });
+
+    return formattedDate
+
+  }
+
+
+  function filterCurrDate(event) {
+
+    let newAuctionList1 = auctions.filter(item => item.title.toLowerCase().includes(titleText.toLowerCase()))
+    setFilteredItems(newAuctionList1)
+
+    let newAuctionList2 = newAuctionList1.filter(item => getDateFromText(item.endTime) == currDateText)
+    setFilteredItems(newAuctionList2)
+
+  }
+
   return (
     <main>
 
       <form>
+
         <label for="exampleFormControlInput1">Auction title of the car to search:</label>
         <input className="flex-sm-fill text-sm-center nav-link" name="titleText"
-          value={titleText} onChange={searchTitle} />
-        <br />
+          value={titleText} onChange={searchTitle} /><br />
+
+        <label for="maxBid">Search for a Max bid less than this value:</label>
+        <input className="flex-sm-fill text-sm-center nav-link" name="maxBid"
+          type="Number" value={maxBidText} onChange={(event) => setNewMaxBidText(event)} />
+        <button type="button" onClick={filterMaxBid} >Set Max Price</button> <br /> <br />
+
+        <label for="maxBid">Date for the auction:</label>
+        <input className="flex-sm-fill text-sm-center nav-link" name="currDate"
+          type="Date" value={currDateText} onChange={(event) => setNewCurrDateText(event)} />
+        <button type="button" onClick={filterCurrDate} >Set Date to Check</button> <br /> <br />
+
       </form>
 
       <form onSubmit={(event) => addNewBid(event, filteredItems)} >
