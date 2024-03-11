@@ -203,6 +203,18 @@ function MyAuction() {
 
   }
 
+  function filterAuctionDate(event) {
+
+    let newAuctionList1 = auctions.filter(item => item.title.toLowerCase().includes(titleText.toLowerCase()))
+    setFilteredItems(newAuctionList1)
+
+    let dateNow = new Date(Date.now())
+
+    let newAuctionList2 = newAuctionList1.filter(item => (Date.parse(item.endTime) >= Date.parse(dateNow)))
+    setFilteredItems(newAuctionList2)
+
+  }
+
   return (
     <main>
 
@@ -220,7 +232,8 @@ function MyAuction() {
         <label for="maxBid">Date for the auction:</label>
         <input className="flex-sm-fill text-sm-center nav-link" name="currDate"
           type="Date" value={currDateText} onChange={(event) => setNewCurrDateText(event)} />
-        <button type="button" onClick={filterCurrDate} >Set Date to Check</button> <br /> <br />
+        <button type="button" onClick={filterCurrDate} >Set Date to Check</button>
+        <button type="button" onClick={filterAuctionDate} >See Bettable Date</button><br /> <br />
 
       </form>
 
