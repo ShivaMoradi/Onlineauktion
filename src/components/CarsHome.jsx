@@ -6,7 +6,7 @@ import AuctionCard from "./AuctionCard";
 function CarsHome() {
   const { carItem } = useContext(GlobalContext);
   const { currentUser } = useContext(AuthContext);
-  console.log(carItem);
+  console.log("CarItem", carItem);
   return (
     <div className="py-5">
       {carItem && (
