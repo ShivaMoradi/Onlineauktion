@@ -21,26 +21,6 @@
       ]
     },
     {
-      "id": "11",
-      "brand": "Toyota",
-      "model": "Corolla",
-      "price": 300500,
-      "year": 2023,
-      "color": "silver",
-      "mileage": 15000,
-      "engine": {
-        "type": "4-cylinder",
-        "displacement": "1.8L"
-      },
-      "transmission": "automatic",
-      "features": [
-        "backup camera",
-        "bluetooth connectivity",
-        "power windows",
-        "keyless entry"
-      ]
-    },
-    {
       "id": "2",
       "brand": "Honda",
       "model": "Civic",
@@ -53,7 +33,11 @@
         "displacement": "2.0L"
       },
       "transmission": "automatic",
-      "features": ["sunroof", "navigation system", "lane departure warning"]
+      "features": [
+        "sunroof",
+        "navigation system",
+        "lane departure warning"
+      ]
     },
     {
       "id": "3",
@@ -68,7 +52,11 @@
         "displacement": "3.5L"
       },
       "transmission": "automatic",
-      "features": ["towing package", "off-road capability", "parking sensors"]
+      "features": [
+        "towing package",
+        "off-road capability",
+        "parking sensors"
+      ]
     },
     {
       "id": "4",
@@ -102,7 +90,11 @@
         "displacement": "2.5L"
       },
       "transmission": "automatic",
-      "features": ["remote start", "blind spot monitoring", "apple carplay"]
+      "features": [
+        "remote start",
+        "blind spot monitoring",
+        "apple carplay"
+      ]
     },
     {
       "id": "6",
@@ -173,7 +165,11 @@
         "displacement": "1.4L"
       },
       "transmission": "automatic",
-      "features": ["heated seats", "android auto", "wireless phone charger"]
+      "features": [
+        "heated seats",
+        "android auto",
+        "wireless phone charger"
+      ]
     },
     {
       "id": "10",
@@ -188,12 +184,23 @@
         "displacement": "2.5L"
       },
       "transmission": "automatic",
-      "features": ["all-wheel drive", "roof rails", "power liftgate"]
+      "features": [
+        "all-wheel drive",
+        "roof rails",
+        "power liftgate"
+      ]
+    },
+    {
+      "id": "11",
+      "email": "john.g@example.com",
+      "title": "asasas",
+      "UrlImag": "https://firebasestorage.googleapis.com/v0/b/onlineauktion-deeda.appspot.com/o/images%2Fsmiley-fire-minimal-art-illustration-dark-background-3840x2160-5718.jpg?alt=media&token=a15a5239-4dab-4e73-bb5e-d802e58bec3f"
     }
   ],
   "Auctions": [
     {
       "id": "1",
+      "title": "Toyota Corolla Auction",
       "startTime": "2024-02-28 11:35:01",
       "endTime": "2024-04-28 11:45:01",
       "highestBid": "150000",
@@ -203,6 +210,7 @@
     },
     {
       "id": "2",
+      "title": "Honda Civic Auction",
       "startTime": "2024-02-28 13:20:21",
       "endTime": "2024-04-28 13:30:01",
       "highestBid": "190000",
@@ -212,6 +220,7 @@
     },
     {
       "id": "3",
+      "title": "Ford F-150 Auction",
       "startTime": "2024-02-28 14:05:00",
       "endTime": "2024-04-28 15:00:01",
       "highestBid": "200000",
@@ -221,6 +230,7 @@
     },
     {
       "id": "4",
+      "title": "Chevrolet Malibu Auction",
       "startTime": "2024-02-28 10:30:01",
       "endTime": "2024-03-28 11:50:01",
       "highestBid": "110000",
@@ -229,16 +239,8 @@
       "status": "0"
     },
     {
-      "id": "6",
-      "startTime": "2024-02-28 10:30:01",
-      "endTime": "2024-03-26 11:50:01",
-      "highestBid": "110000",
-      "carId": "11",
-      "userId": "5",
-      "status": "0"
-    },
-    {
       "id": "5",
+      "title": "Nissan Altima Auction",
       "startTime": "2024-02-28 08:15:01",
       "endTime": "2024-03-06 10:00:01",
       "highestBid": "300000",
@@ -299,13 +301,20 @@
     },
     {
       "id": "c0da"
+    },
+    {
+      "id": "84e4"
+    },
+    {
+      "id": "2574"
     }
   ],
   "bid": [
     {
       "userId": "user_id_here",
       "auctionId": "auction_id_here",
-      "bidAmount": 1000
+      "bidAmount": 1000,
+      "id": "f40a"
     },
     {
       "id": "3307",
@@ -316,6 +325,35 @@
       "id": "1748",
       "auctionId": 1,
       "bidAmount": 1000
+    },
+    {
+      "id": "17bc",
+      "auctionId": 1,
+      "bidAmount": 12121212,
+      "userId": ""
+    },
+    {
+      "id": "a97c",
+      "auctionId": 1,
+      "bidAmount": 160000,
+      "userId": ""
+    },
+    {
+      "id": "1c32",
+      "auctionId": 2,
+      "bidAmount": 222222,
+      "userId": "user123"
+    },
+    {
+      "id": "3deb",
+      "auctionId": "2",
+      "bidAmount": 70000,
+      "userId": ""
+    },
+    {
+      "id": "a38b",
+      "auctionId": "2",
+      "bidAmount": null
     }
   ]
 }
