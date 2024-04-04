@@ -2,18 +2,19 @@ using MySql.Data.MySqlClient;
 using Onlineauction;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddAuthentication().AddCookie("opa23.onlineauction.cars");
+builder.Services.AddAuthentication().AddCookie("opa23.Onlineauction.cars");
 builder.Services.AddAuthorizationBuilder().AddPolicy("admin_route", policy => policy.RequireRole("admin"));
 builder.Services.AddAuthorizationBuilder().AddPolicy("user_route", policy => policy.RequireRole("user"));
 
 MySqlConnection? db = null;
-string connectionString = "server=localhost;uid=root;pwd=mypassword;database=onlineauction;port=3306";
+string connectionString = "server=localhost;uid=root;pwd=mypassword;database=Onlineauction;port=3306";
 
 try
 {
 
     db = new(connectionString);
-    db.Open();
+    db!.Open();
+
 
     builder.Services.AddSingleton(new State(db));
     var app = builder.Build();
@@ -43,7 +44,7 @@ catch (MySqlException e)
 }
 finally
 {
-    db.Close();
+    db?.Close();
 }
 
 
