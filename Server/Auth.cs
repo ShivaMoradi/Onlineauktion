@@ -39,14 +39,14 @@ public class Auth
 
         Console.WriteLine(id + ", " + roll);
 
-        await ctx.SignInAsync("opa23.onlineauction.cars", new ClaimsPrincipal(
+        await ctx.SignInAsync("opa23.Onlineauction.cars", new ClaimsPrincipal(
             new ClaimsIdentity(
                 new Claim[]
                 {
                     new Claim(ClaimTypes.NameIdentifier, id),
                     new Claim(ClaimTypes.Role, roll),
                 },
-                "opa23.onlineauction.cars"
+                "opa23.Onlineauction.cars"
             )
         ));
         return TypedResults.Ok("Signed in");
