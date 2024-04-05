@@ -1,6 +1,8 @@
 using MySql.Data.MySqlClient;
 using Onlineauction;
 using System;
+using Microsoft.AspNetCore.Http;
+
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddAuthentication().AddCookie("opa23.Onlineauction.cars");
@@ -31,6 +33,8 @@ try
     app.MapPost("/users", Users.Post);
     app.MapPost("/users/user", Users.PostUser);
     app.MapGet("/bid", BidData.All);
+    app.MapPost("/bid", (BidData.Bid bid, State state) => BidData.PostBid(bid, state));
+
 
 
 

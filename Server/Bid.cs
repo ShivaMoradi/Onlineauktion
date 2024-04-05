@@ -2,6 +2,8 @@ using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 
+
+
 namespace Onlineauction
 {
   public class BidData
@@ -17,7 +19,7 @@ namespace Onlineauction
       using var reader = command.ExecuteReader();
       while (reader.Read())
       {
-        string id = reader.GetString("id"); 
+        string id = reader.GetString("id");
         int auctionId = reader.GetInt32("auctionId");
         decimal bidAmount = reader.GetDecimal("bidAmount");
         string userId = reader.GetString("userId");
@@ -27,6 +29,22 @@ namespace Onlineauction
         Console.WriteLine(strInfo);
       }
       return bids;
+    }
+
+    public static IResult PostBid(Bid bid, State state)
+    {
+      string strQuery = "INSERT INTO bid (id, auctionId, bidAmount, userId) " +
+                        "VALUES (@id, @auctionId, @bidAmount, @userId)";
+
+      MySqlCommand command = new(strQuery, state.DB);
+
+      command.Parameters.AddWithValue("@id", bid.id);
+      command.Parameters.AddWithValue("@auctionId", bid.auctionId);
+      command.Parameters.AddWithValue("@bidAmount", bid.bidAmount);
+      command.Parameters.AddWithValue("@userId", bid.userId);
+
+      command.ExecuteNonQuery();
+      return TypedResults.Created();
     }
   }
 }
