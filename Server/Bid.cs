@@ -1,56 +1,32 @@
+using MySql.Data.MySqlClient;
+using System;
+using System.Collections.Generic;
+
 namespace Onlineauction
 {
-  using MySql.Data.MySqlClient;
-  using System;
-  using System.Data;
-  using System.Threading.Tasks;
-
-  public class Bid
+  public class BidData
   {
-    public int AuctionId { get; set; }
-    public decimal BidAmount { get; set; }
-    public string UserId { get; set; }
+    public record Bid(string id, int auctionId, decimal bidAmount, string userId);
 
-    public Bid(int auctionId, decimal bidAmount, string userId)
+    public static List<Bid> All(State state)
     {
-      AuctionId = auctionId;
-      BidAmount = bidAmount;
-      UserId = userId;
-    }
+      List<Bid> bids = new();
+      string strInfo = "";
+      MySqlCommand command = new("SELECT * FROM bid", state.DB);
 
-    public static async Task<IResult> CreateBidAsync(Bid bid, MySqlConnection connection)
-    {
-      if (connection.State != ConnectionState.Open)
+      using var reader = command.ExecuteReader();
+      while (reader.Read())
       {
-        connection.Open();
-      }
+        string id = reader.GetString("id"); 
+        int auctionId = reader.GetInt32("auctionId");
+        decimal bidAmount = reader.GetDecimal("bidAmount");
+        string userId = reader.GetString("userId");
+        bids.Add(new Bid(id, auctionId, bidAmount, userId));
 
-      try
-      {
-        var query = "INSERT INTO bid (AuctionId, BidAmount, UserId) VALUES (@AuctionId, @BidAmount, @UserId);";
-        using var cmd = new MySqlCommand(query, connection);
-        cmd.Parameters.AddWithValue("@AuctionId", bid.AuctionId);
-        cmd.Parameters.AddWithValue("@BidAmount", bid.BidAmount);
-        cmd.Parameters.AddWithValue("@UserId", bid.UserId);
-
-        var result = await cmd.ExecuteNonQueryAsync();
-        if (result > 0)
-        {
-          return Results.Created($"/bid/{cmd.LastInsertedId}", bid);
-        }
-        else
-        {
-          return Results.Problem("Failed to create a bid.");
-        }
+        strInfo += $"Bid id: {id}, Auction ID: {auctionId}, Bid Amount: {bidAmount}, User ID: {userId}\n";
+        Console.WriteLine(strInfo);
       }
-      catch (Exception ex)
-      {
-        return Results.Problem(ex.Message);
-      }
-      finally
-      {
-        connection.Close();
-      }
+      return bids;
     }
   }
 }
