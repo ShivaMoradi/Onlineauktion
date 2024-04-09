@@ -33,7 +33,7 @@ try
     app.MapPost("/users", Users.Post);
     app.MapPost("/users/user", Users.PostUser);
     app.MapGet("/bid", BidData.All);
-    app.MapPost("/bid", (BidData.Bid bid, State state) => BidData.PostBid(bid, state));
+    app.MapPost("/bid", BidData.PostBid);
 
 
 
