@@ -10,7 +10,7 @@ export default defineConfig({
             // t.ex. localhost:5173/api/products -> localhost:3000/products
             '/api': {
                 // url som vi vill skicka till, från vår react app
-                target: 'http://localhost:3000',
+                target: 'http://localhost:3008',
                 changeOrigin: true,
                 // tar bort /api/ från vår path
                 rewrite: (path) => path.replace(/^\/api/, ''),
