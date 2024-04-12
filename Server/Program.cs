@@ -40,6 +40,10 @@ try
     app.MapGet("/", Cars.GetCarsHome);
     app.MapGet("/cars", Cars.GetAllCars);
     app.MapGet("/cars/{id}", Cars.GetCarId);
+    app.MapPost("/cars", Cars.PostCar);
+    app.MapPut("/cars/edit/{id}", Cars.EditCar);
+    app.MapDelete("/cars/delete/{id}", Cars.DeleteCar);
+
 
     //bids
     app.MapGet("/bids", Bids.All);
