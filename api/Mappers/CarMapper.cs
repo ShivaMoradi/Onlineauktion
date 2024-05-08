@@ -29,20 +29,20 @@ namespace api.Mappers
   
 
 
-        public static Car ToCarFromCreateDto(this CreateCarRequestDto carModel)
+        public static Car ToCarFromCreateDto(this CreateCarDto carDto)
         {
             return new Car
             {
-                Brand = carModel.Brand,
-                Model = carModel.Model,
-                Price = carModel.Price,
-                Year = carModel.Year,
-                ImageUrl = carModel.ImageUrl,
-                Mileage = carModel.Mileage,
-                EngineType = carModel.EngineType,
-                EngineDisplacement = carModel.EngineDisplacement,
-                Transmission = carModel.Transmission,
-                Features = carModel.Features
+                Brand = carDto.Brand,
+                Model = carDto.Model,
+                Price = carDto.Price,
+                Year = carDto.Year,
+                ImageUrl = carDto.ImageUrl,
+                Mileage = carDto.Mileage,
+                EngineType = carDto.EngineType,
+                EngineDisplacement = carDto.EngineDisplacement,
+                Transmission = carDto.Transmission,
+                Features = carDto.Features
             };
         }
 

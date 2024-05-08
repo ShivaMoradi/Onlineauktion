@@ -15,12 +15,12 @@ namespace api.Controllers
     [ApiController]
     public class CarController : ControllerBase
     {
-        private readonly ApplicationDbContext _context;
+     
         private readonly ICarRepository _carRepo;
-        public CarController(ApplicationDbContext context, ICarRepository carRepo)
+        public CarController(ICarRepository carRepo)
         {   
             _carRepo = carRepo;
-            _context = context;
+    
         }
 
 
@@ -46,7 +46,7 @@ namespace api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] CreateCarRequestDto carDto)
+        public async Task<IActionResult> Create([FromBody] CreateCarDto carDto)
         {
             var carModel =  carDto.ToCarFromCreateDto();
     

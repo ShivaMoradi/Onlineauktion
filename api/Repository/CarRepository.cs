@@ -18,6 +18,11 @@ namespace api.Repository
             _context = context;
         }
 
+        public Task<bool> CarExists(int id)
+        {
+            return _context.Cars.AnyAsync(x => x.Id == id);
+        }
+
         public async Task<Car> CreateAsync(Car carModel)
         {
             await _context.Cars.AddAsync(carModel);

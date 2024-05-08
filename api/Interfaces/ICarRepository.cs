@@ -9,6 +9,7 @@ namespace api.Interfaces
 {
     public interface ICarRepository
     {
+        Task<bool> CarExists(int id);
         Task<List<Car>> GetAllAsync();
         Task<Car?> GetByIdAsync(int id);
         Task<Car> CreateAsync(Car carModel);

@@ -12,6 +12,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddControllers().AddNewtonsoftJson(options => {
+    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+});
+
 
 // Adding the controllers
 builder.Services.AddControllers();
@@ -25,8 +29,11 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 );
 
  
-
+// Dependency Injections
 builder.Services.AddScoped<ICarRepository, CarRepository>();
+builder.Services.AddScoped<IBidRepository, BidRepository>();
+builder.Services.AddScoped<IAuctionRepository, AuctionRepository>();
+
 
 var app = builder.Build();
 

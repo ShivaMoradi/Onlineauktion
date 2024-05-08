@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace api.Dtos.Car
 {
-    public class CreateCarRequestDto
+    public class CreateCarDto
     {
         public string Brand { get; set; } = string.Empty;
         public string Model { get; set; } = string.Empty;

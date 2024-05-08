@@ -1,14 +1,13 @@
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
+using api.Dtos.Bid;
+using api.Dtos.Car;
 
-namespace Server.Models
-{   
-    [Table("Auctions")]
-    public class Auction
+namespace api.Dtos.Auction
+{
+    public class AuctionDto
     {
         public int Id { get; set; }
         public string Title { get; set; } = string.Empty;
@@ -19,7 +18,6 @@ namespace Server.Models
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
         public DateTime CreatedOn { get; set; } = DateTime.Now;
-        public Car Car { get; set; } = new Car();
-        public List<Bid>? Bids { get; set; } = new List<Bid>();
+
     }
 }
