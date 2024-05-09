@@ -1,9 +1,9 @@
 -- Inserting sample data into the Cars table
 INSERT INTO Cars (Brand, Model, Price, Year, ImageUrl, Mileage, EngineType, EngineDisplacement, Transmission, Features)
 VALUES
-('Toyota', 'Corolla', 20000, 2021, 'https://example.com/toyota-corolla.jpg', 15000, 'Gasoline', '1.8L', 'Automatic', '["Air Conditioning", "Bluetooth"]'),
-('Ford', 'Mustang', 35000, 2020, 'https://example.com/ford-mustang.jpg', 8000, 'Gasoline', '5.0L', 'Manual', '["Leather Seats", "Navigation System"]'),
-('Tesla', 'Model 3', 45000, 2022, 'https://example.com/tesla-model-3.jpg', 1000, 'Electric', 'Electric', 'Automatic', '["Autopilot", "Heated Seats"]');
+('Toyota', 'Corolla', 20000, 2021, 'https://i.postimg.cc/RZXyWdRG/Toyota-Corolla.webp', 15000, 'Gasoline', '1.8L', 'Automatic', '["Air Conditioning", "Bluetooth"]'),
+('Ford', 'Mustang', 35000, 2020, 'https://i.postimg.cc/R0pkDdJq/Ford-Mustang.webp', 8000, 'Gasoline', '5.0L', 'Manual', '["Leather Seats", "Navigation System"]'),
+('Tesla', 'Model 3', 45000, 2022, 'https://i.postimg.cc/nrmf7mzr/Tesla-Model-3.jpg', 1000, 'Electric', 'Electric', 'Automatic', '["Autopilot", "Heated Seats"]');
 
 -- Inserting sample data into the Users table
 INSERT INTO Users (Username, Password, Name, Email, Role)

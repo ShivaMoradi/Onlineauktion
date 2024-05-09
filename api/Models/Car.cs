@@ -21,6 +21,7 @@ namespace Server.Models
         public string Transmission { get; set; } = string.Empty;
         public List<string> Features { get; set; } = new();
         
-
+        public Auction Auction { get; set; }
+        
     }
 }

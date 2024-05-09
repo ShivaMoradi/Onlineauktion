@@ -36,12 +36,10 @@ namespace api.Controllers
         public async Task<IActionResult> GetById([FromRoute] int id)
         {
             var car = await _carRepo.GetByIdAsync(id);
-
             if (car == null)
             {
                 return NotFound();
             }  
-            
             return Ok(car.ToCarDto());
         }
 
@@ -49,9 +47,7 @@ namespace api.Controllers
         public async Task<IActionResult> Create([FromBody] CreateCarDto carDto)
         {
             var carModel =  carDto.ToCarFromCreateDto();
-    
             await _carRepo.CreateAsync(carModel);
-
             return CreatedAtAction(nameof(GetById), new {id = carModel.Id}, carModel.ToCarDto());
         }
 
@@ -61,12 +57,10 @@ namespace api.Controllers
         public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateCarRequestDto updateCarDto)
         {
             var carModel = await _carRepo.UpdateAsync(id, updateCarDto);
-
             if(carModel == null)
             {
                 return NotFound();
             }
-
             return Ok(carModel.ToCarDto());
         }
 
@@ -75,12 +69,10 @@ namespace api.Controllers
         public async Task<IActionResult> Delete([FromRoute] int id)
         {
             var carModel = await _carRepo.DeleteAsync(id);
-
             if(carModel == null)
             {
                 return NotFound();
             }
-
             return NoContent();
         }
     }

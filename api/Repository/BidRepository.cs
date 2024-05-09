@@ -29,9 +29,12 @@ namespace api.Repository
             return await _context.Bids.ToListAsync();
         }
 
+        #pragma warning disable CS8603
         public async Task<Bid> GetByIdAsync(int id)
         {
             return await _context.Bids.FindAsync(id);
         }
+        #pragma warning restore CS8603
+
     }
 }

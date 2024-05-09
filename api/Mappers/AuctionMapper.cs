@@ -20,7 +20,6 @@ namespace api.Mappers
                 Title = auctionModel.Title,
                 HighestBid = auctionModel.HighestBid,
                 CarId = auctionModel.CarId,
-                UserId = auctionModel.UserId,
                 Status = auctionModel.Status,
                 StartTime = auctionModel.StartTime,
                 EndTime = auctionModel.EndTime,

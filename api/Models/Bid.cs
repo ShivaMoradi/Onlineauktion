@@ -12,7 +12,8 @@ namespace Server.Models
         public int Id { get; set; }
         public int BidAmount { get; set; } 
         public DateTime CreatedOn { get; set; } = DateTime.Now;
-        public int AuctionId { get; set; }
-        public int UserId { get; set; }
+        public int AuctionId { get; set; } // Foreign key
+        
+        public Auction Auction { get; set; } 
     }
 }

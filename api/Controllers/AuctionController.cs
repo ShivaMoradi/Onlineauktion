@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using api.Dtos.Aggregates;
 using api.Dtos.Auction;
 using api.Dtos.Car;
 using api.Interfaces;
@@ -51,6 +52,16 @@ namespace api.Controllers
         }
 
 
+        [HttpPost]
+        public async Task<IActionResult> Create([FromBody] CreateAuctionWithCarDto request)
+        {
+            var auctionModel = request.Auction.ToAuctionFromCreateDto();
+            var carModel = request.Car.ToCarFromCreateDto();
+
+            var createdAuction = await _auctionRepo.CreateAuctionAsync(auctionModel, carModel);
+
+            return CreatedAtAction(nameof(GetById), new { id = createdAuction}, createdAuction.ToAuctionDto());
+        }
 
     }
 }

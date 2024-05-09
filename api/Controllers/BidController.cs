@@ -37,12 +37,10 @@ namespace api.Controllers
         public async Task<IActionResult> GetById(int id)
         {
            var bidModel = await _bidRepo.GetByIdAsync(id);
-
            if(bidModel == null)
            {
             return NotFound();
            }
-
            return Ok(bidModel.ToBidDto());
         }
 

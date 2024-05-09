@@ -16,8 +16,7 @@ namespace api.Mappers
                 Id = bidModel.Id,
                 BidAmount = bidModel.BidAmount,
                 CreatedOn = bidModel.CreatedOn,
-                AuctionId = bidModel.AuctionId,
-                UserId = bidModel.UserId
+                AuctionId = bidModel.AuctionId
             };
         }
 
@@ -28,8 +27,7 @@ namespace api.Mappers
             {
                 BidAmount = bidDto.BidAmount,
                 CreatedOn = bidDto.CreatedOn,
-                AuctionId = auctionId,
-                UserId = bidDto.UserId
+                AuctionId = auctionId
             };
         }
 

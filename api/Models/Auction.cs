@@ -13,12 +13,12 @@ namespace Server.Models
         public int Id { get; set; }
         public string Title { get; set; } = string.Empty;
         public long HighestBid { get; set; }
-        public int? CarId { get; set; }
-        public int? UserId { get; set; }
-        public bool Status { get; set; } = false;
+        public int CarId { get; set; } // Foreign key
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
+        public bool Status { get; set; } = false;
         public DateTime CreatedOn { get; set; } = DateTime.Now;
+        
         public Car Car { get; set; } = new Car();
         public List<Bid>? Bids { get; set; } = new List<Bid>();
     }
