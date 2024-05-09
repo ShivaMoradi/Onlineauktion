@@ -16,6 +16,6 @@ namespace api.Dtos.Car
         public string EngineType { get; set; } = string.Empty;
         public string EngineDisplacement { get; set; } = string.Empty;
         public string Transmission { get; set; } = string.Empty;
-        public List<string> Features { get; set; } = new();
+        public List<string>? Features { get; set; } 
     }
 }

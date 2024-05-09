@@ -9,7 +9,7 @@ namespace api.Dtos.Aggregates
 {
     public class CreateAuctionWithCarDto
     {
-        public CreateAuctionDto Auction { get; set; }
-        public CreateCarDto Car { get; set; }
+        public required CreateAuctionDto Auction { get; set; }
+        public required CreateCarDto Car { get; set; } // Car is currently not optional when creating an Auction.
     }
 }

@@ -21,12 +21,11 @@ namespace api.Mappers
         }
 
 
-        public static Bid ToBidFromCreate(this CreateBidDto bidDto, int auctionId)
+        public static Bid ToBidFromCreate(this CreateBidDDto bidDto, int auctionId)
         {
             return new Bid
             {
                 BidAmount = bidDto.BidAmount,
-                CreatedOn = bidDto.CreatedOn,
                 AuctionId = auctionId
             };
         }

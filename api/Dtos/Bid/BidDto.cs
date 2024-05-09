@@ -11,6 +11,6 @@ namespace api.Dtos.Bid
         public int BidAmount { get; set; } 
         public DateTime CreatedOn { get; set; } = DateTime.Now;
         public int AuctionId { get; set; }
-        public int UserId { get; set; }
+
     }
 }

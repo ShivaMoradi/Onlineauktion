@@ -23,7 +23,7 @@ namespace api.Controllers
     
         }
 
-
+        // Get all cars
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
@@ -32,7 +32,8 @@ namespace api.Controllers
             return Ok(carDtos);
         }
 
-        [HttpGet("{id}")]
+        // Get by ID
+        [HttpGet("{id:int}")]
         public async Task<IActionResult> GetById([FromRoute] int id)
         {
             var car = await _carRepo.GetByIdAsync(id);
@@ -43,15 +44,15 @@ namespace api.Controllers
             return Ok(car.ToCarDto());
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Create([FromBody] CreateCarDto carDto)
-        {
-            var carModel =  carDto.ToCarFromCreateDto();
-            await _carRepo.CreateAsync(carModel);
-            return CreatedAtAction(nameof(GetById), new {id = carModel.Id}, carModel.ToCarDto());
-        }
+        // [HttpPost]
+        // public async Task<IActionResult> Create([FromBody] CreateCarDto carDto)
+        // {
+        //     var carModel =  carDto.ToCarFromCreateDto();
+        //     await _carRepo.CreateAsync(carModel);
+        //     return CreatedAtAction(nameof(GetById), new {id = carModel.Id}, carModel.ToCarDto());
+        // }
 
-
+        // Update car
         [HttpPut]
         [Route("{id}")]
         public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateCarRequestDto updateCarDto)
@@ -64,8 +65,9 @@ namespace api.Controllers
             return Ok(carModel.ToCarDto());
         }
 
+        // Delete car
         [HttpDelete]
-        [Route("{id}")]
+        [Route("{id:int}")]
         public async Task<IActionResult> Delete([FromRoute] int id)
         {
             var carModel = await _carRepo.DeleteAsync(id);

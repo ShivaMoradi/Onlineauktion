@@ -20,8 +20,10 @@ namespace Server.Models
         public string EngineDisplacement { get; set; } = string.Empty;
         public string Transmission { get; set; } = string.Empty;
         public List<string> Features { get; set; } = new();
+
         
-        public Auction Auction { get; set; }
+        // navigation property - will not be generated in the db:
+        public Auction Auction { get; set; } 
         
     }
 }

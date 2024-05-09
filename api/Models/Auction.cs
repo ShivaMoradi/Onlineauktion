@@ -19,7 +19,9 @@ namespace Server.Models
         public bool Status { get; set; } = false;
         public DateTime CreatedOn { get; set; } = DateTime.Now;
         
-        public Car Car { get; set; } = new Car();
-        public List<Bid>? Bids { get; set; } = new List<Bid>();
+
+        // navigation properties - will not be generated in the db:
+        public Car Car { get; set; } = null!;
+        public List<Bid>? Bids { get; set; }
     }
 }

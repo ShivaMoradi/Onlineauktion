@@ -24,7 +24,7 @@ namespace api.Controllers
         }
 
 
-
+        // Get all bids
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
@@ -33,7 +33,8 @@ namespace api.Controllers
             return Ok(bidDtos);
         }
 
-        [HttpGet("{id}")]
+        // Get 1 bid
+        [HttpGet("{id:int}")]
         public async Task<IActionResult> GetById(int id)
         {
            var bidModel = await _bidRepo.GetByIdAsync(id);
@@ -44,23 +45,23 @@ namespace api.Controllers
            return Ok(bidModel.ToBidDto());
         }
 
-
-
-
-
-        [HttpPost("{auctionId}")]
-        public async Task<IActionResult> Create([FromRoute] int auctionId, CreateBidDto bidDto)
+        // Create bid
+        [HttpPost("{auctionId:int}")]
+        public async Task<IActionResult> Create([FromRoute] int auctionId, CreateBidDDto createBid)
         {
             if(!await _auctionRepo.AuctionExist(auctionId))
             {
                 return BadRequest("Auction does not exist");
-            }
-
-            var bidModel = bidDto.ToBidFromCreate(auctionId);
+            } 
+            var bidModel = createBid.ToBidFromCreate(auctionId);
             await _bidRepo.CreateAsync(bidModel);
 
-            return CreatedAtAction(nameof(GetById), new {id = bidModel}, bidModel.ToBidDto());
+            return CreatedAtAction(nameof(GetById), new {id = bidModel.Id}, bidModel.ToBidDto());
         }
+
+
+
+
 
     }
 }

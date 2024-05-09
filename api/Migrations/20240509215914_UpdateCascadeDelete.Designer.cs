@@ -12,8 +12,8 @@ using Server.Data;
 namespace api.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240508160517_Init")]
-    partial class Init
+    [Migration("20240509215914_UpdateCascadeDelete")]
+    partial class UpdateCascadeDelete
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -33,7 +33,7 @@ namespace api.Migrations
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("CarId")
+                    b.Property<int>("CarId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedOn")
@@ -55,10 +55,10 @@ namespace api.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<int?>("UserId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
+
+                    b.HasIndex("CarId")
+                        .IsUnique();
 
                     b.ToTable("Auctions");
                 });
@@ -79,9 +79,6 @@ namespace api.Migrations
 
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime(6)");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -173,18 +170,37 @@ namespace api.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("Server.Models.Auction", b =>
+                {
+                    b.HasOne("Server.Models.Car", "Car")
+                        .WithOne("Auction")
+                        .HasForeignKey("Server.Models.Auction", "CarId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Car");
+                });
+
             modelBuilder.Entity("Server.Models.Bid", b =>
                 {
-                    b.HasOne("Server.Models.Auction", null)
+                    b.HasOne("Server.Models.Auction", "Auction")
                         .WithMany("Bids")
                         .HasForeignKey("AuctionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Auction");
                 });
 
             modelBuilder.Entity("Server.Models.Auction", b =>
                 {
                     b.Navigation("Bids");
+                });
+
+            modelBuilder.Entity("Server.Models.Car", b =>
+                {
+                    b.Navigation("Auction")
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

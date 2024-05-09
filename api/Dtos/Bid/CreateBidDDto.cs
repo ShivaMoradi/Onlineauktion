@@ -1,15 +1,16 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace api.Dtos.Bid
 {
-    public class CreateBidDto
+    public class CreateBidDDto
     {
+        [Required]
+        [Range(1, 1000000000)]
         public int BidAmount { get; set; } 
-        public DateTime CreatedOn { get; set; } = DateTime.Now;
-        public int AuctionId { get; set; }
-        public int UserId { get; set; }
+
     }
 }

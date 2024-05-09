@@ -24,7 +24,57 @@ namespace api.Mappers
                 StartTime = auctionModel.StartTime,
                 EndTime = auctionModel.EndTime,
                 CreatedOn = auctionModel.CreatedOn,
+            };
+        }
 
+
+        public static AuctionWithBidsDto ToAuctionWithBidsDto(this Auction auctionModel)
+        {
+            return new AuctionWithBidsDto
+            {
+                Id = auctionModel.Id,
+                Title = auctionModel.Title,
+                HighestBid = auctionModel.HighestBid,
+                CarId = auctionModel.CarId,
+                Status = auctionModel.Status,
+                StartTime = auctionModel.StartTime,
+                EndTime = auctionModel.EndTime,
+                CreatedOn = auctionModel.CreatedOn,
+                Bids = auctionModel.Bids.Select(b => b.ToBidDto()).ToList()
+            };
+        }
+
+        
+        public static AuctionWithCarDto ToAuctionWithCarDto(this Auction auctionModel)
+        {
+            return new AuctionWithCarDto
+            {
+                Id = auctionModel.Id,
+                Title = auctionModel.Title,
+                HighestBid = auctionModel.HighestBid,
+                CarId = auctionModel.CarId,
+                Status = auctionModel.Status,
+                StartTime = auctionModel.StartTime,
+                EndTime = auctionModel.EndTime,
+                CreatedOn = auctionModel.CreatedOn,
+                Car = auctionModel.Car.ToCarDto()
+            };
+        }
+
+        public static AuctionFullDto ToAuctionFullDto(this Auction auctionModel)
+        {
+            return new AuctionFullDto
+            {
+                Id = auctionModel.Id,
+                Title = auctionModel.Title,
+                HighestBid = auctionModel.HighestBid,
+                CarId = auctionModel.CarId,
+                Status = auctionModel.Status,
+                StartTime = auctionModel.StartTime,
+                EndTime = auctionModel.EndTime,
+                CreatedOn = auctionModel.CreatedOn,
+                Car = auctionModel.Car.ToCarDto(),
+                Bids = auctionModel.Bids.Select(b => b.ToBidDto()).ToList() 
             };
         }
 
@@ -37,6 +87,15 @@ namespace api.Mappers
                 HighestBid = auctionDto.HighestBid,
                 StartTime = auctionDto.StartTime,
                 EndTime = auctionDto.EndTime
+            };
+        }
+
+
+        public static Auction ToAuctionFromUpdate(this UpdateAuctionDto auctionDto)
+        {
+            return new Auction
+            {
+                Title = auctionDto.Title
             };
         }
 

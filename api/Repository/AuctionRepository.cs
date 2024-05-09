@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using api.Interfaces;
+using api.Mappers;
 using Microsoft.EntityFrameworkCore;
 using Server.Data;
 using Server.Models;
@@ -42,16 +43,56 @@ namespace api.Repository
         {
             await _context.Cars.AddAsync(carModel);
             await _context.SaveChangesAsync();
-
-            auctionModel.Car = carModel;
+            
             auctionModel.CarId = carModel.Id;
+            auctionModel.Car = carModel;
 
+           
             await _context.Auctions.AddAsync(auctionModel);
             await _context.SaveChangesAsync();
 
             return auctionModel;
-
         }
 
+        public async Task<Auction?> UpdateAsync(int id, Auction auctionModel)
+        {
+            var existingAuction = await _context.Auctions.FindAsync(id);
+
+            if(existingAuction == null)
+            {
+                return null;
+            }
+
+            // Only edits the Title of an auction.
+            existingAuction.Title = auctionModel.Title;
+    
+            await _context.SaveChangesAsync();
+            return existingAuction;           
+        }
+        
+        // Delete auction, car and bids
+        public async Task<Auction?> DeleteAsync(int id)
+        {
+            var auctionModel = await _context.Auctions
+                .Include(x => x.Bids)
+                .Include(x => x.Car)
+                .FirstOrDefaultAsync(a => a.Id == id);
+                
+            if(auctionModel == null)
+            {
+                return null;
+            }
+
+            if (auctionModel.Car != null)
+            {
+                _context.Cars.Remove(auctionModel.Car);
+            }
+                    
+
+            _context.Auctions.Remove(auctionModel);
+            await _context.SaveChangesAsync();
+            
+            return auctionModel;
+        }
     }
 }

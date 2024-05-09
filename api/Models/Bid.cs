@@ -14,6 +14,7 @@ namespace Server.Models
         public DateTime CreatedOn { get; set; } = DateTime.Now;
         public int AuctionId { get; set; } // Foreign key
         
-        public Auction Auction { get; set; } 
+        // navigation property - will not be generated in the db:
+        public Auction Auction { get; set; } = null!; // Auction will never be null.
     }
 }

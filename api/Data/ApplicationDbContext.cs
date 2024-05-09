@@ -20,15 +20,11 @@ namespace Server.Data
         public DbSet<Car> Cars { get; set; }
         public DbSet<User> Users { get; set; }
         
+        
+        // Setting up FOREIGN KEYS in AuctionTable in DB:
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // One-to-Many: Auction to Bids
-            modelBuilder.Entity<Auction>()
-                .HasMany(a => a.Bids)
-                .WithOne(b => b.Auction)
-                .HasForeignKey(b => b.AuctionId)
-                .OnDelete(DeleteBehavior.Cascade); // Bids are removed when Auction is deleted
-
+            
             // One-to-One: Auction to Car
             modelBuilder.Entity<Auction>()
                 .HasOne(a => a.Car)
@@ -36,7 +32,15 @@ namespace Server.Data
                 .HasForeignKey<Auction>(a => a.CarId) // Foreign key in Auction table
                 .OnDelete(DeleteBehavior.Cascade); // Car is removed when Auction is deleted
 
-        base.OnModelCreating(modelBuilder);
+            // One-to-Many: Auction to Bids
+            modelBuilder.Entity<Auction>()
+                .HasMany(a => a.Bids)
+                .WithOne(b => b.Auction)
+                .HasForeignKey(b => b.AuctionId)
+                .OnDelete(DeleteBehavior.Cascade); // Bids are removed when Auction is deleted
+
+
+            base.OnModelCreating(modelBuilder);
         }
     }
 }

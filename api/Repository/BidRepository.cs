@@ -17,6 +17,11 @@ namespace api.Repository
             _context = context;
         }
 
+        public async Task<bool> BidExists(int id)
+        {
+            return await _context.Bids.AnyAsync(s => s.Id == id);
+        }
+
         public async Task<Bid> CreateAsync(Bid bidModel)
         {
             await _context.Bids.AddAsync(bidModel);
@@ -29,12 +34,9 @@ namespace api.Repository
             return await _context.Bids.ToListAsync();
         }
 
-        #pragma warning disable CS8603
-        public async Task<Bid> GetByIdAsync(int id)
+        public Task<Bid?> GetByIdAsync(int id)
         {
-            return await _context.Bids.FindAsync(id);
+            throw new NotImplementedException();
         }
-        #pragma warning restore CS8603
-
     }
 }

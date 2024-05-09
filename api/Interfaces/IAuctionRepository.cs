@@ -12,6 +12,8 @@ namespace api.Interfaces
         Task<List<Auction>> GetAllAsync(); 
         Task<Auction?> GetByIdAsync(int id);
         Task<Auction> CreateAuctionAsync(Auction auctionModel, Car carModel);
+        Task<Auction?> UpdateAsync(int id, Auction auctionModel);
+        Task<Auction?> DeleteAsync(int id);
     
     }
 }

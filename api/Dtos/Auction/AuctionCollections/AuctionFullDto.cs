@@ -7,7 +7,7 @@ using api.Dtos.Car;
 
 namespace api.Dtos.Auction
 {
-    public class AuctionDto
+    public class AuctionFullDto
     {
         public int Id { get; set; }
         public string Title { get; set; } = string.Empty;
@@ -17,6 +17,7 @@ namespace api.Dtos.Auction
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
         public DateTime CreatedOn { get; set; } = DateTime.Now;
-  
+        public CarDto? Car { get; set; }
+        public List<BidDto> Bids { get; set; } = new List<BidDto>();
     }
 }
