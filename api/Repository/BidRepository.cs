@@ -29,14 +29,28 @@ namespace api.Repository
             return bidModel;
         }
 
+        public async Task<Bid?> DeleteAsync(int id)
+        {
+            var bidModel = await _context.Bids.FindAsync(id);
+            if(bidModel == null)
+            {
+                return null;
+            }
+            _context.Bids.Remove(bidModel);
+            await _context.SaveChangesAsync();
+
+            return bidModel;
+        }
+
         public async Task<List<Bid>> GetAllAsync()
         {
             return await _context.Bids.ToListAsync();
         }
 
-        public Task<Bid?> GetByIdAsync(int id)
+        public async Task<Bid?> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            return await _context.Bids.FindAsync(id);
+ 
         }
     }
 }

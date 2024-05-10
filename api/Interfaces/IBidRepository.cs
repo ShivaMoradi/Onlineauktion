@@ -12,5 +12,6 @@ namespace api.Interfaces
         Task<List<Bid>> GetAllAsync();
         Task<Bid?> GetByIdAsync(int id);
         Task<Bid> CreateAsync(Bid bidModel);
+        Task<Bid?> DeleteAsync(int id);
     }
 }

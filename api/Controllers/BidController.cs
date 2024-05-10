@@ -59,9 +59,18 @@ namespace api.Controllers
             return CreatedAtAction(nameof(GetById), new {id = bidModel.Id}, bidModel.ToBidDto());
         }
 
-
-
-
+        //Delete bid
+        [HttpDelete]
+        [Route("{id:int}")]
+        public async Task<IActionResult> Delete([FromRoute] int id)
+        {
+            var bidModel = await _bidRepo.DeleteAsync(id);
+            if(bidModel == null)
+            {
+                return NotFound();
+            }
+            return NoContent();
+        }
 
     }
 }
