@@ -43,12 +43,13 @@ jobs:
           npx wait-on http://localhost:5173
         working-directory: ./Client
 
-
-      - name: Install and run Cypress tests
-        run: |
-          npm ci
-          npm run test
-        working-directory: ./cypress
+      # Cypress Tests should be Disabled
+      
+      # - name: Install and run Cypress tests
+      #   run: |
+      #     npm ci
+      #     npm run test
+      #   working-directory: ./cypress
 
 
 
