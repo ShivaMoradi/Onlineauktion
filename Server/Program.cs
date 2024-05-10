@@ -63,6 +63,15 @@ try
     app.MapPut("/api/auctions/{id}", Auctions.PutAuctions);
 
     //obtaining cars data
+    /*
+    app.MapGet("/", Cars.GetCarsHome);
+    app.MapGet("/cars", Cars.GetAllCars);
+    app.MapGet("/cars/{id}", Cars.GetCarId);
+    app.MapPost("/cars", Cars.PostCar);
+    app.MapPost("/cars/getid", Cars.PostCarGetId);
+    app.MapPut("/cars/edit/{id}", Cars.EditCar);
+    app.MapDelete("/cars/delete/{id}", Cars.DeleteCar);
+       */
     app.MapGet("/api/cars/home", Cars.GetCarsHome);
     app.MapGet("/api/cars", Cars.GetAllCars);
     app.MapGet("/api/cars/{id}", Cars.GetCarId);
