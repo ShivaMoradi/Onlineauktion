@@ -28,9 +28,10 @@ namespace Server.Data
             // One-to-One: Auction to Car
             modelBuilder.Entity<Auction>()
                 .HasOne(a => a.Car)
-                .WithOne(c => c.Auction) 
-                .HasForeignKey<Auction>(a => a.CarId) // Foreign key in Auction table
-                .OnDelete(DeleteBehavior.Cascade); // Car is removed when Auction is deleted
+                .WithOne(c => c.Auction)
+                .HasForeignKey<Car>(c => c.AuctionId)
+                .OnDelete(DeleteBehavior.Cascade);
+                
 
             // One-to-Many: Auction to Bids
             modelBuilder.Entity<Auction>()
@@ -38,7 +39,6 @@ namespace Server.Data
                 .WithOne(b => b.Auction)
                 .HasForeignKey(b => b.AuctionId)
                 .OnDelete(DeleteBehavior.Cascade); // Bids are removed when Auction is deleted
-
 
             base.OnModelCreating(modelBuilder);
         }

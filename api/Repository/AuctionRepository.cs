@@ -40,19 +40,21 @@ namespace api.Repository
         }
 
         public async Task<Auction> CreateAuctionAsync(Auction auctionModel, Car carModel)
-        {
-            await _context.Cars.AddAsync(carModel);
-            await _context.SaveChangesAsync();
-            
-            auctionModel.CarId = carModel.Id;
-            auctionModel.Car = carModel;
+        {      
 
-           
             await _context.Auctions.AddAsync(auctionModel);
             await _context.SaveChangesAsync();
 
+            carModel.AuctionId = auctionModel.Id;
+
+            await _context.Cars.AddAsync(carModel);
+            await _context.SaveChangesAsync();
+            
+            // auctionModel.Car = carModel;
+ 
             return auctionModel;
         }
+
 
         public async Task<Auction?> UpdateAsync(int id, Auction auctionModel)
         {
@@ -83,15 +85,15 @@ namespace api.Repository
                 return null;
             }
 
-            if (auctionModel.Car != null)
-            {
-                _context.Cars.Remove(auctionModel.Car);
-            }
-                    
+            // Manually deleting car from
+            // if (auctionModel.Car != null)
+            // {
+            //     _context.Cars.Remove(auctionModel.Car);
+            // }
 
             _context.Auctions.Remove(auctionModel);
             await _context.SaveChangesAsync();
-            
+
             return auctionModel;
         }
     }

@@ -12,7 +12,7 @@ using Server.Data;
 namespace api.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240509215914_UpdateCascadeDelete")]
+    [Migration("20240510141131_UpdateCascadeDelete")]
     partial class UpdateCascadeDelete
     {
         /// <inheritdoc />
@@ -32,9 +32,6 @@ namespace api.Migrations
                         .HasColumnType("int");
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("CarId")
-                        .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime(6)");
@@ -56,9 +53,6 @@ namespace api.Migrations
                         .HasColumnType("longtext");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CarId")
-                        .IsUnique();
 
                     b.ToTable("Auctions");
                 });
@@ -94,6 +88,9 @@ namespace api.Migrations
                         .HasColumnType("int");
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("AuctionId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Brand")
                         .IsRequired()
@@ -134,6 +131,9 @@ namespace api.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("AuctionId")
+                        .IsUnique();
+
                     b.ToTable("Cars");
                 });
 
@@ -170,17 +170,6 @@ namespace api.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("Server.Models.Auction", b =>
-                {
-                    b.HasOne("Server.Models.Car", "Car")
-                        .WithOne("Auction")
-                        .HasForeignKey("Server.Models.Auction", "CarId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Car");
-                });
-
             modelBuilder.Entity("Server.Models.Bid", b =>
                 {
                     b.HasOne("Server.Models.Auction", "Auction")
@@ -192,14 +181,22 @@ namespace api.Migrations
                     b.Navigation("Auction");
                 });
 
+            modelBuilder.Entity("Server.Models.Car", b =>
+                {
+                    b.HasOne("Server.Models.Auction", "Auction")
+                        .WithOne("Car")
+                        .HasForeignKey("Server.Models.Car", "AuctionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Auction");
+                });
+
             modelBuilder.Entity("Server.Models.Auction", b =>
                 {
                     b.Navigation("Bids");
-                });
 
-            modelBuilder.Entity("Server.Models.Car", b =>
-                {
-                    b.Navigation("Auction")
+                    b.Navigation("Car")
                         .IsRequired();
                 });
 #pragma warning restore 612, 618

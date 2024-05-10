@@ -10,6 +10,7 @@ namespace Server.Models
     public class Car
     {
         public int Id { get; set; }
+        public int AuctionId { get; set; }
         public string Brand { get; set; } = string.Empty;
         public string Model { get; set; } = string.Empty;
         public int Price { get; set; }
@@ -23,7 +24,7 @@ namespace Server.Models
 
         
         // navigation property - will not be generated in the db:
-        public Auction Auction { get; set; } 
+        public Auction Auction { get; set; } = null!;
         
     }
 }

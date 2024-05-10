@@ -78,7 +78,6 @@ namespace api.Controllers
         }
 
 
-
         // Get by ID
         [HttpGet("{id:int}")]
         public async Task<IActionResult> GetById([FromRoute] int id)
@@ -101,9 +100,8 @@ namespace api.Controllers
 
             var createdAuction = await _auctionRepo.CreateAuctionAsync(auctionModel, carModel);
 
-    
-
             return CreatedAtAction(nameof(GetById), new { id = createdAuction.Id }, createdAuction.ToAuctionDto());
+            
         }
 
 
@@ -134,6 +132,5 @@ namespace api.Controllers
 
             return NoContent();
         }
-
     }
 }

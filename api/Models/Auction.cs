@@ -13,12 +13,13 @@ namespace Server.Models
         public int Id { get; set; }
         public string Title { get; set; } = string.Empty;
         public long HighestBid { get; set; }
-        public int CarId { get; set; } // Foreign key
+
+
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
         public bool Status { get; set; } = false;
         public DateTime CreatedOn { get; set; } = DateTime.Now;
-        
+
 
         // navigation properties - will not be generated in the db:
         public Car Car { get; set; } = null!;
