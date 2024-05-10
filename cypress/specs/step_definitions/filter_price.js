@@ -15,4 +15,6 @@ When("When you click on a price", () => {
   cy.get('[data-test="priceoption3"]').click({ force: true });
 });
 
-Then("Shows the cars with the selected price", () => {});
+Then("Shows the cars with the selected price", () => {
+  // todo
+});
