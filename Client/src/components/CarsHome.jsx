@@ -18,7 +18,11 @@ function CarsHome() {
       {carItem && (
         <div className="row row-cols-1 row-cols-md-3 g-3">
           {carItem.map((car) => (
-            <div className="col-12 col-sm-6 col-md-4 " key={car.id}>
+            <div
+              className="col-12 col-sm-6 col-md-4 "
+              key={car.id}
+              data-test={`countdown-${car.id}`}
+            >
               <Link
                 to={`/cars/${car.id}`}
                 key={car.id}
