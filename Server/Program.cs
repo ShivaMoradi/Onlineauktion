@@ -8,7 +8,7 @@ builder.Services.AddAuthentication().AddCookie("opa23.onlineauction.cars");
 builder.Services.AddAuthorizationBuilder().AddPolicy("admin_route", policy => policy.RequireRole("admin"));
 builder.Services.AddAuthorizationBuilder().AddPolicy("user_route", policy => policy.RequireRole("user"));
 
-string connectionString = "server=localhost;uid=root;pwd=admin;database=onlineauction;port=3306";
+string connectionString = "server=localhost;uid=root;pwd=mypassword;database=onlineauction;port=3306";
 
 try
 {
@@ -98,7 +98,7 @@ try
     // Remove "http://localhost:3008" when deploying to server. Instead use app.Run();.
 
 
-    app.Run("http://localhost:3008");
+    app.Run();
     // app.Run();
 
 

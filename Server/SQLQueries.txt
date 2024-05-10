@@ -52,7 +52,7 @@ CREATE TABLE bid (
     userId    INT            NULL,
     CONSTRAINT fk_auctionId
         FOREIGN KEY (auctionId) REFERENCES auctions (id),
-    CONSTRAINT fk_userId
+    CONSTRAINT fk_userId_bid
         FOREIGN KEY (userId) REFERENCES users (id)
 );
 
