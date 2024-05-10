@@ -4,6 +4,10 @@ Given('I login using my credentials', () => {
   cy.login("Desmond", "234_desmond");
 });
 
+Then('I am logged in', () => {
+  // TODO
+});
+
 Then('I logout', () => {
   cy.logout();
 });

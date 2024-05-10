@@ -5,5 +5,5 @@ When("I enter {string} into the search box", (a) => {
 });
 
 Then("I should see only cars with the brand {string} in the results", (a) => {
-  cy.get('[data-test="countdown-5"]').should("exist");
+  cy.getDataTest("countdown-5").should("exist");
 });
