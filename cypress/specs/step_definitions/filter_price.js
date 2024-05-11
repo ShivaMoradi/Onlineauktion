@@ -4,7 +4,7 @@ import { Given, When, Then } from "@badeball/cypress-cucumber-preprocessor";
 Given('I am on the homepage', () => {});*/
 
 When("I click on the in the price selector", () => {
-  cy.get('[data-test="selectprice"]').select("20000-30000");
+  cy.get('[data-test="selectprice"]').select("500-2000");
 });
 
 Then("Shows you a list of car price", () => {
