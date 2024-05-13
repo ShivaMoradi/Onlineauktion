@@ -4,15 +4,15 @@ import { Given, When, Then } from "@badeball/cypress-cucumber-preprocessor";
 Given('I am on the homepage', () => {});*/
 
 When("I click on the in the price selector", () => {
-  cy.get('[data-test="selectprice"]').select("20000-30000");
+  cy.getDataTest("selectprice").select("20000-30000");
 });
 
 Then("Shows you a list of car price", () => {
-  cy.get('[data-test="priceoption3"]').should("exist");
+  cy.getDataTest("priceoption3").should("exist");
 });
 
 When("When you click on a price", () => {
-  cy.get('[data-test="priceoption3"]').click({ force: true });
+  cy.getDataTest("priceoption3").click({ force: true });
 });
 
 Then("Shows the cars with the selected price", () => {});
