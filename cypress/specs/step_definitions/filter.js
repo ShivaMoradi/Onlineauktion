@@ -10,7 +10,7 @@ When("I click on the in the model selector", () => {
 });
 
 Then("Shows you a list of car model names", () => {
-  cy.ggetDataTestet("optionToyota").should("exist");
+  cy.getDataTest("optionToyota").should("exist");
 });
 
 When("When you click on a model name", () => {

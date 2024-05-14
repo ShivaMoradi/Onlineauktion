@@ -5,7 +5,7 @@ Given("I am on the website", () => {
 });
 
 When("I click on the {string} link", (a) => {
-  cy.ggetDataTestet("nav-home").click();
+  cy.getDataTest("nav-home").click();
 });
 
 Then("I should be redirected to the home page", () => {

@@ -16,7 +16,7 @@ When("I enter a bid amount greater than the current highest bid", () => {
   const action = { bild: "1100010" };
   cy.getDataTest("bildinput").type(action.bild);
   cy.wait(2000);
-  cy.gegetDataTestt("submit").click();
+  cy.getDataTest("submit").click();
 });
 
 Then("I should see a message confirming my bid was successful", () => {
