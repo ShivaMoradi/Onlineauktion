@@ -21,38 +21,32 @@ function formatEndTime(date) {
 }
 
 function AuctionForm({ onSubmit, closeForm, auction }) {
-  console.log("Sent to AuctionForm: ", auction);
   const { user } = useContext(AuthContext);
 
   const [auctionForm, setAuctionForm] = useState({
     userId: user?.id || undefined,
-
     brand: auction?.brand || "",
     model: auction?.model || "",
     year: auction?.year || "",
     color: auction?.color || "",
     mileage: auction?.mileage || "",
-    engine_type: auction?.engineType || "",
-    engine_displacement: auction?.engineDisplacement || "",
+    engineType: auction?.engineType || "",
+    engineDisplacement: auction?.engineDisplacement || "",
     transmission: auction?.transmission || "",
-    features: auction?.features || [],
-    featuresOneLine: auction?.featuresOneLine || "",
+    features: auction?.features ? auction.features.join(", ") : "",
     price: auction?.price || "",
     imageUrl: auction?.imageUrl || "",
-
     title: auction?.title || "",
     startDate: auction?.startTime || formatDateTime(new Date()),
-    endDate: formatEndTime(auction?.endTime) || "",
+    endDate: auction?.endTime ? formatEndTime(auction.endTime) : "",
     highestBid: auction?.highestBid || "",
     status: "0",
-
-    // "status": must be added */
-    // add place for image url
   });
+
+  const [errors, setErrors] = useState({});
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-
     setAuctionForm((prevState) => ({
       ...prevState,
       [name]: value,
@@ -60,25 +54,22 @@ function AuctionForm({ onSubmit, closeForm, auction }) {
   };
 
   const handleFeatureChange = (e) => {
-    // let featuresOneLine = e.target.value;
-    const features = e.target.value.split(",").map((feature) => feature.trim());
-
+    const features = e.target.value;
     setAuctionForm((prevState) => ({ ...prevState, features }));
-    // setAuctionForm(prevState => ({ ...prevState, featuresOneLine }))
   };
 
   const validateForm = () => {
     const errors = {};
 
-    if (!user.id) {
+    if (!auctionForm.userId) {
       errors.userId = "No user found.";
     }
 
-    if (!auctionForm.brand) {
+    if (!auctionForm.brand.trim()) {
       errors.brand = "Brand is required.";
     }
 
-    if (!auctionForm.model) {
+    if (!auctionForm.model.trim()) {
       errors.model = "Model is required.";
     }
 
@@ -98,15 +89,15 @@ function AuctionForm({ onSubmit, closeForm, auction }) {
       endDateTime <= new Date(auctionForm.startDate) ||
       endDateTime <= lastEditedDate
     ) {
-      errors.endDate = "End date must be in the future";
+      errors.endDate = "End date must be in the future.";
     }
 
-    if (!auctionForm.color) {
+    if (!auctionForm.color.trim()) {
       errors.color = "Color is required.";
     }
 
-    if (!auctionForm.imageUrl) {
-      errors.imageUrl = "ImageURL not found.";
+    if (!auctionForm.imageUrl.trim()) {
+      errors.imageUrl = "Image URL is required.";
     }
 
     if (
@@ -117,11 +108,11 @@ function AuctionForm({ onSubmit, closeForm, auction }) {
       errors.mileage = "Please enter valid mileage.";
     }
 
-    if (!auctionForm.engineType) {
+    if (!auctionForm.engineType.trim()) {
       errors.engineType = "Please enter engine type.";
     }
 
-    if (!auctionForm.engineDisplacement) {
+    if (!auctionForm.engineDisplacement.trim()) {
       errors.engineDisplacement = "Please enter engine displacement.";
     }
 
@@ -133,6 +124,7 @@ function AuctionForm({ onSubmit, closeForm, auction }) {
       errors.highestBid = "Please enter a valid starting bid.";
     }
 
+    setErrors(errors);
     return errors;
   };
 
@@ -142,7 +134,7 @@ function AuctionForm({ onSubmit, closeForm, auction }) {
     const errors = validateForm();
 
     if (Object.keys(errors).length > 0) {
-      console.error(errors);
+      setErrors(errors);
       return;
     }
 
@@ -160,7 +152,7 @@ function AuctionForm({ onSubmit, closeForm, auction }) {
       engine_type: auctionForm.engineType,
       engine_displacement: auctionForm.engineDisplacement,
       transmission: auctionForm.transmission,
-      features: auctionForm.features.join(", "),
+      features: auctionForm.features,
     };
 
     const method = auction?.id ? "PUT" : "POST";
@@ -183,7 +175,6 @@ function AuctionForm({ onSubmit, closeForm, auction }) {
       if (!carResponse.ok)
         throw new Error(`Problem posting car data (with method: ${method}).`);
 
-      // Add current hour, minute and seconds to end-date.
       const endDateWithTime = new Date(auctionForm.endDate);
       endDateWithTime.setHours(new Date().getHours());
       endDateWithTime.setMinutes(new Date().getMinutes());
@@ -221,15 +212,16 @@ function AuctionForm({ onSubmit, closeForm, auction }) {
   };
 
   return (
-    <div className="auction-form-container">
+    <div className="auction-form-container" data-test="auction-form-container">
       <form
         onSubmit={handleSubmit}
         className="container bg-light p-4 my-5 rounded"
         style={{ backdropFilter: "blur(10px)" }}
+        data-test="auction-form"
       >
         <div className="row g-2">
           <div className="col-12">
-            <div className="card mb-4">
+            <div className="card mb-4" data-test="auction-details-card">
               <div className="col-12">
                 <div className="card">
                   <div className="card-header">Auction Details</div>
@@ -246,7 +238,9 @@ function AuctionForm({ onSubmit, closeForm, auction }) {
                           name="title"
                           value={auctionForm.title}
                           onChange={handleChange}
+                          data-test="title-input"
                         />
+                        {errors.title && <div className="text-danger">{errors.title}</div>}
                       </div>
                       <div className="col-md-6">
                         <label htmlFor="endDate" className="form-label">
@@ -259,7 +253,9 @@ function AuctionForm({ onSubmit, closeForm, auction }) {
                           name="endDate"
                           value={auctionForm.endDate}
                           onChange={handleChange}
+                          data-test="end-date-input"
                         />
+                        {errors.endDate && <div className="text-danger">{errors.endDate}</div>}
                       </div>
                       <div className="col-md-6">
                         <label htmlFor="highestBid" className="form-label">
@@ -272,14 +268,16 @@ function AuctionForm({ onSubmit, closeForm, auction }) {
                           name="highestBid"
                           value={auctionForm.highestBid}
                           onChange={handleChange}
+                          data-test="starting-bid-input"
                         />
+                        {errors.highestBid && <div className="text-danger">{errors.highestBid}</div>}
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
               <div className="card-header">Car Details</div>
-              <div className="card-body">
+              <div className="card-body" data-test="car-details-card">
                 <div className="row g-3">
                   <div className="col-md-6">
                     <label htmlFor="brand" className="form-label">
@@ -292,7 +290,9 @@ function AuctionForm({ onSubmit, closeForm, auction }) {
                       name="brand"
                       value={auctionForm.brand}
                       onChange={handleChange}
+                      data-test="brand-input"
                     />
+                    {errors.brand && <div className="text-danger">{errors.brand}</div>}
                   </div>
                   <div className="col-md-6">
                     <label htmlFor="model" className="form-label">
@@ -305,7 +305,9 @@ function AuctionForm({ onSubmit, closeForm, auction }) {
                       name="model"
                       value={auctionForm.model}
                       onChange={handleChange}
+                      data-test="model-input"
                     />
+                    {errors.model && <div className="text-danger">{errors.model}</div>}
                   </div>
                   <div className="col-md-6">
                     <label htmlFor="year" className="form-label">
@@ -318,7 +320,9 @@ function AuctionForm({ onSubmit, closeForm, auction }) {
                       name="year"
                       value={auctionForm.year}
                       onChange={handleChange}
+                      data-test="year-input"
                     />
+                    {errors.year && <div className="text-danger">{errors.year}</div>}
                   </div>
                   <div className="col-md-6">
                     <label htmlFor="color" className="form-label">
@@ -331,7 +335,9 @@ function AuctionForm({ onSubmit, closeForm, auction }) {
                       name="color"
                       value={auctionForm.color}
                       onChange={handleChange}
+                      data-test="color-input"
                     />
+                    {errors.color && <div className="text-danger">{errors.color}</div>}
                   </div>
                   <div className="col-md-6">
                     <label htmlFor="imageUrl" className="form-label">
@@ -345,7 +351,9 @@ function AuctionForm({ onSubmit, closeForm, auction }) {
                       placeholder="Enter image URL"
                       value={auctionForm.imageUrl}
                       onChange={handleChange}
+                      data-test="image-url-input"
                     />
+                    {errors.imageUrl && <div className="text-danger">{errors.imageUrl}</div>}
                   </div>
                   <div className="col-md-6">
                     <label htmlFor="mileage" className="form-label">
@@ -358,7 +366,9 @@ function AuctionForm({ onSubmit, closeForm, auction }) {
                       name="mileage"
                       value={auctionForm.mileage}
                       onChange={handleChange}
+                      data-test="mileage-input"
                     />
+                    {errors.mileage && <div className="text-danger">{errors.mileage}</div>}
                   </div>
                   <div className="col-md-6">
                     <label htmlFor="engineType" className="form-label">
@@ -371,7 +381,9 @@ function AuctionForm({ onSubmit, closeForm, auction }) {
                       name="engineType"
                       value={auctionForm.engineType}
                       onChange={handleChange}
+                      data-test="engine-type-input"
                     />
+                    {errors.engineType && <div className="text-danger">{errors.engineType}</div>}
                   </div>
                   <div className="col-md-6">
                     <label htmlFor="engineDisplacement" className="form-label">
@@ -384,7 +396,9 @@ function AuctionForm({ onSubmit, closeForm, auction }) {
                       name="engineDisplacement"
                       value={auctionForm.engineDisplacement}
                       onChange={handleChange}
+                      data-test="engine-displacement-input"
                     />
+                    {errors.engineDisplacement && <div className="text-danger">{errors.engineDisplacement}</div>}
                   </div>
                   <div className="col-md-6">
                     <label htmlFor="transmission" className="form-label">
@@ -396,11 +410,13 @@ function AuctionForm({ onSubmit, closeForm, auction }) {
                       name="transmission"
                       value={auctionForm.transmission}
                       onChange={handleChange}
+                      data-test="transmission-select"
                     >
                       <option value="">Select Transmission</option>
                       <option value="automatic">Automatic</option>
                       <option value="manual">Manual</option>
                     </select>
+                    {errors.transmission && <div className="text-danger">{errors.transmission}</div>}
                   </div>
                   <div className="col-md-6">
                     <label htmlFor="features" className="form-label">
@@ -412,8 +428,9 @@ function AuctionForm({ onSubmit, closeForm, auction }) {
                       id="features"
                       name="features"
                       placeholder="Enter features separated by commas"
-                      value={auctionForm.features.join(" , ")}
+                      value={auctionForm.features}
                       onChange={handleFeatureChange}
+                      data-test="features-input"
                     />
                   </div>
                 </div>
@@ -423,17 +440,27 @@ function AuctionForm({ onSubmit, closeForm, auction }) {
         </div>
 
         <div className="d-grid gap-2 d-md-flex justify-content-center">
-          <button type="submit" className="btn btn-primary btn-lg ms-md-2">
+          <button
+            type="submit"
+            className="btn btn-primary btn-lg ms-md-2"
+            data-test="save-auction-btn"
+          >
             Save Auction
           </button>
           <button
             type="button"
             className="btn btn-secondary btn-lg"
             onClick={closeForm}
+            data-test="cancel-btn"
           >
             Cancel
           </button>
         </div>
+        {Object.keys(errors).length > 0 && (
+          <div className="alert alert-danger" role="alert" data-test="form-errors">
+            Please correct the errors in the form.
+          </div>
+        )}
       </form>
     </div>
   );

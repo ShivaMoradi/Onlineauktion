@@ -72,7 +72,7 @@ function UserDashboard(){
                 { showForm ? ( 
                 <AuctionForm auction={auctionForm} onSubmit={ handleAuctionSubmit } closeForm={ handleCloseForm } /> 
                 ) : ( 
-                <button className="btn btn-primary" onClick={ handleShowForm }> Create new Auction </button> ) }
+                <button data-test='create-auction-btn'className="btn btn-primary" onClick={ handleShowForm }> Create new Auction </button> ) }
             </div>
 
             <div>
