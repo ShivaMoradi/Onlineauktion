@@ -143,9 +143,11 @@ function BidItem({ item }) {
       <div className="card-body">
         <h5 className="card-title">{item.name}</h5>
         <p className="card-text">Startpris: ${startPrice}</p>
-        <small className="card-text" data-test="highestbid">
-          Högsta bud: ${highestBid}
-        </small>
+        <p value={highestBid} data-test="highestbid">
+          <small className="card-text" value={highestBid}>
+            Högsta bud: ${highestBid}
+          </small>
+        </p>
 
         <p className="card-text">
           <br></br>
