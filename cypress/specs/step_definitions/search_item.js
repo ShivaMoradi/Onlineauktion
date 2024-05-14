@@ -4,6 +4,6 @@ When("I enter {string} into the search box", (a) => {
   cy.get("#search").type("Nissan");
 });
 
-Then("I should see only cars with the brand {string} in the results", (a) => {
+Then("I should see only one  cars", (a) => {
   cy.getDataTest("countdown-5").should("exist");
 });
