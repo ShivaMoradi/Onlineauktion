@@ -13,13 +13,23 @@ When("I click on a one car", () => {
 });
 
 When("I enter a bid amount greater than the current highest bid", () => {
-  const action = { bild: "1100010" };
-  cy.getDataTest("bildinput").type(action.bild);
+  cy.get('[data-test="highestbid"]').as("bidText");
   cy.wait(2000);
-  cy.getDataTest("submit").click();
+  cy.get("@bidText")
+    .invoke("attr", "value")
+    .then(($val) => {
+      cy.get('[data-test="bildinput"]').type(parseFloat($val) + 10);
+      cy.get('[data-test="submit"]').click();
+    });
 });
 
 Then("I should see a message confirming my bid was successful", () => {
-  const action = { bild: "1100010" };
-  cy.getDataTest("highestbid").should("contain.text", action.bild);
+  cy.get('[data-test="highestbid"]').as("bidText");
+  cy.get('[data-test="bildinput"]').as("formText");
+  cy.wait(2000);
+  cy.get("@bidText")
+    .invoke("attr", "value")
+    .then(($current) => {
+      cy.get("@formText").invoke("attr", "value").should("eq", $current);
+    });
 });

@@ -14,11 +14,27 @@ When("I click on the selector option", () => {
 });
 
 When("I enter a bid amount", () => {
-  cy.getDataTest("bidamount").type("444450");
+  let newBild;
+  cy.getDataTest("highestbid")
+    .invoke("attr", "value")
+    .then(($bid) => {
+      newBild = parseInt($bid) + 10;
+    })
+    .then(() => {
+      cy.getDataTest("bidamount").type(newBild);
+      cy.getDataTest("buttonbid").click();
+    });
 });
 
 Then("I should see the new bid amount displayed", () => {
-  cy.wait(3000);
-  cy.getDataTest("buttonbid").click();
-  cy.getDataTest("highestbid").should("contain.text", "444450");
+  let newValue;
+  cy.wait(2000);
+  cy.getDataTest("highestbid")
+    .invoke("attr", "value")
+    .then(($val) => {
+      newValue = $val;
+    })
+    .then(() => {
+      cy.getDataTest("highestbid").should("contain.text", newValue);
+    });
 });

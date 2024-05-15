@@ -152,14 +152,17 @@ function MyAuction() {
           ))}
         </select>
         {selectedAuction && (
-          <button onClick={() => setSelectedAuction(null)}>
+          <button
+            onClick={() => setSelectedAuction(null)}
+            data-test="back-button"
+          >
             Back to Auctions
           </button>
         )}
       </div>
       <div>
         {selectedAuction ? (
-          <div className="auction-details">
+          <div className="auction-details" data-test={selectedAuction}>
             {filteredItems.find((auction) => auction.id === selectedAuction) ? (
               <>
                 <h3 id="auction-title">
@@ -186,7 +189,14 @@ function MyAuction() {
                     ).endTime
                   }
                 </p>
-                <p data-test="highestbid">
+                <p
+                  data-test="highestbid"
+                  value={
+                    filteredItems.find(
+                      (auction) => auction.id === selectedAuction
+                    ).highestBid
+                  }
+                >
                   Highest Bid: $
                   {
                     filteredItems.find(
@@ -219,7 +229,7 @@ function MyAuction() {
             )}
           </div>
         ) : (
-          <ul className="container">
+          <ul className="container" data-test="container">
             {filteredItems.map((auction) => (
               <li key={auction.id} className="item">
                 <div className="auction-details">
