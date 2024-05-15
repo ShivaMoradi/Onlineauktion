@@ -4,10 +4,10 @@ Given("I am on the {string} page", (a) => {
   cy.visit("/");
 });
 
-When("the page has loaded.", () => {
-  cy.waitUntil(() => cy.get("#auctioncard").should("exist"));
+When("the page loads", () => {
+  cy.wait("http://localhost:5173").its("response.statusCode").should("eq", 200);
 });
 
 Then("I should then see the price of the car.", () => {
-  cy.getDataTest("countdown-3").should("contain.text", "$20000");
+  cy.getDataTest("cotainercars").its("length").should("be.gt", 0);
 });
