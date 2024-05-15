@@ -186,7 +186,14 @@ function MyAuction() {
                     ).endTime
                   }
                 </p>
-                <p data-test="highestbid">
+                <p
+                  data-test="highestbid"
+                  value={
+                    filteredItems.find(
+                      (auction) => auction.id === selectedAuction
+                    ).highestBid
+                  }
+                >
                   Highest Bid: $
                   {
                     filteredItems.find(

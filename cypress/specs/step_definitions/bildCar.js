@@ -24,7 +24,6 @@ When("I enter a bid amount greater than the current highest bid", () => {
 });
 
 Then("I should see a message confirming my bid was successful", () => {
-  let highestBid;
   cy.get('[data-test="highestbid"]').as("bidText");
   cy.get('[data-test="bildinput"]').as("formText");
   cy.wait(2000);
