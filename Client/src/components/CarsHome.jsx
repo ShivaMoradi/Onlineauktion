@@ -4,8 +4,10 @@ import { Link } from "react-router-dom";
 import { GlobalContext } from "../context/GlobalContext";
 import { AuthContext } from "./authentiction/AuthContext";
 import AuctionCard from "./AuctionCard";
+import LoadProgress from "./authentiction/LoadProgress";
+
 function CarsHome() {
-  const { carItem, setFilteredCartItems, fetchError } =
+  const { carItem, setFilteredCartItems, fetchError, isLoading, setIsLoading } =
     useContext(GlobalContext);
 
   useEffect(() => {
@@ -37,6 +39,8 @@ function CarsHome() {
             </div>
           ))}
         </div>
+      ) : fetchError === null ? (
+        <LoadProgress isLoading={isLoading} setIsLoading={setIsLoading} />
       ) : (
         <Alert variant="info">{fetchError}</Alert>
       )}

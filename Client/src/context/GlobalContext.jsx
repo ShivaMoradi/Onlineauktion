@@ -26,19 +26,6 @@ function GlobalProvider({ children }) {
           throw Error("Did not receive expected data");
         const listCarItem = await response.json();
         console.log("Context", listCarItem);
-        /*
-        const listDuration = await responseDuration.json();
-        console.log(listDuration);
-        const updatedCarItem = listCarItem.map((car) => {
-          const match = listDuration.find((item) => item.carId === car.id);
-          if (match) {
-            const durationHrs = Math.abs(new Date(match.endTime));
-            return { ...car, duration: durationHrs };
-          }
-
-          return car;
-        });*/
-        // console.log(updatedCarItem);
         setCarItem(listCarItem);
         setOriginalCarItem(listCarItem);
         setFetchError(null);
