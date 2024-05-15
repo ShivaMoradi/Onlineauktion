@@ -7,8 +7,8 @@ Given('I login using my credentials', () => {
 
 Then('I am logged in', () => {
  cy.getDataTest('nav').contains(/userpage/i).should("be.visible");
- cy.getDataTest('nav-userpage').click();
  cy.wait(1000);
+ cy.getDataTest('nav-userpage').click();
 });
 
 Then('I logout', () => {
