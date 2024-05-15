@@ -1,9 +1,5 @@
 import { Given, When, Then } from "@badeball/cypress-cucumber-preprocessor";
 
-Given("I am on the homepage", (a) => {
-  cy.visit("/");
-});
-
 When("I click on a specific car", () => {
   cy.getDataTest("countdown-3").click();
 });
