@@ -74,7 +74,7 @@ jobs:
             cd /var/www/Onlineauktion
             git pull
             rm -r cypress
-            cd Client
+            cd /var/www/Onlineauktion/Client
             npm ci
             npm run build
             cd /var/www/Onlineauktion/Server
