@@ -95,7 +95,7 @@ function BidItem({ item }) {
       });
 
       if (response.ok) {
-        setFeedbackMessage("Budet har lagts framgångsrikt!");
+        ("Budet har lagts framgångsrikt!");
         setIsBidSuccessful(true);
 
         const updatedAuctions = auctions.map((auction) => {
@@ -143,7 +143,11 @@ function BidItem({ item }) {
       <div className="card-body">
         <h5 className="card-title">{item.name}</h5>
         <p className="card-text">Startpris: ${startPrice}</p>
-        <small className="card-text">Högsta bud: ${highestBid}</small>
+        <p value={highestBid} data-test="highestbid">
+          <small className="card-text" value={highestBid}>
+            Högsta bud: ${highestBid}
+          </small>
+        </p>
 
         <p className="card-text">
           <br></br>
@@ -166,8 +170,13 @@ function BidItem({ item }) {
                 value={bidText}
                 onChange={setNewBidText}
                 placeholder="Ange ditt bud"
+                data-test="bildinput"
               />
-              <button className="btn btn-primary mt-2" type="submit">
+              <button
+                className="btn btn-primary mt-2"
+                type="submit"
+                data-test="submit"
+              >
                 Lägg Bud
               </button>
             </form>
@@ -175,7 +184,10 @@ function BidItem({ item }) {
             ""
           )}
 
-          <p className={`text-${isBidSuccessful ? "success" : "danger"}`}>
+          <p
+            className={`text-${isBidSuccessful ? "success" : "danger"}`}
+            data-test="bidsuccessful"
+          >
             {feedbackMessage}
           </p>
         </div>

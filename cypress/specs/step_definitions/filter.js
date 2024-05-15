@@ -6,7 +6,7 @@ Given("homepage", () => {
   cy.visit("/");
 });
 When("I click on the in the model selector", () => {
-  cy.getDataTest("selectmodel").select("Toyota"); 
+  cy.getDataTest("selectmodel").select("Toyota");
 });
 
 Then("Shows you a list of car model names", () => {

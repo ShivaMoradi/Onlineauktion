@@ -5,7 +5,7 @@ Given("I am on the homepage", (a) => {
 });
 
 When("I click on a specific car", () => {
-  cy.get('[data-test="countdown-3"]').click();
+  cy.getDataTest("countdown-3").click();
 });
 
 Then("I should be redirected to the details page of that car", () => {
