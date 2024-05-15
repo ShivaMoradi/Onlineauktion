@@ -68,7 +68,7 @@ public class Users
         return TypedResults.Created();
 
     }
-    public static IResult UpdateUserPassword(int id, User user , State state)
+    public static IResult UpdateUserPassword(int id, User user, State state)
     {
 
         string strQuery = "Update users set password = @password where id = @id";
