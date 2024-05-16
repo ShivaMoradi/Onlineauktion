@@ -4,8 +4,10 @@ import { Link } from "react-router-dom";
 import { GlobalContext } from "../context/GlobalContext";
 import { AuthContext } from "./authentiction/AuthContext";
 import AuctionCard from "./AuctionCard";
+import LoadProgress from "./authentiction/LoadProgress";
+
 function CarsHome() {
-  const { carItem, setFilteredCartItems, fetchError } =
+  const { carItem, setFilteredCartItems, fetchError, isLoading, setIsLoading } =
     useContext(GlobalContext);
 
   useEffect(() => {
@@ -19,7 +21,10 @@ function CarsHome() {
   return (
     <div className="py-3" id="auctioncard">
       {carItem && carItem.length > 0 ? (
-        <div className="row row-cols-1 row-cols-md-3 g-3">
+        <div
+          className="row row-cols-1 row-cols-md-3 g-3"
+          data-test="cotainercars"
+        >
           {carItem.map((car) => (
             <div
               className="col-12 col-sm-6 col-md-4 "
@@ -37,6 +42,8 @@ function CarsHome() {
             </div>
           ))}
         </div>
+      ) : fetchError === null ? (
+        <LoadProgress isLoading={isLoading} setIsLoading={setIsLoading} />
       ) : (
         <Alert variant="info">{fetchError}</Alert>
       )}

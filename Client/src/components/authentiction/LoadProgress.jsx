@@ -1,22 +1,16 @@
-import React, { useEffect } from "react";
-import Spinner from "react-bootstrap/Spinner";
-import UploadImage from "../../hook/UploadImage";
+import React, { useEffect, useState } from "react";
+import { Spinner } from "react-bootstrap";
 
-function LoadProgress({ item, setitem }) {
-  const { progress, isCompleted } = UploadImage(item);
-
-  useEffect(() => {
-    if (isCompleted) {
-      setitem(null);
-    }
-  }, [isCompleted, setitem]);
-
+function LoadProgress({ isLoading, setIsLoading }) {
   return (
     <>
-      <Spinner animation="border" role="status">
-        <span className="visually-hidden">Loading...</span>
-      </Spinner>
+      {isLoading && (
+        <Spinner animation="border" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </Spinner>
+      )}
     </>
   );
 }
+
 export default LoadProgress;
