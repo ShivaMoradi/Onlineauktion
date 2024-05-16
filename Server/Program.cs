@@ -1,26 +1,34 @@
 using Microsoft.Extensions.FileProviders;
 using MySql.Data.MySqlClient;
 using Onlineauction;
+using Server.Data;
 using System;
 
 var builder = WebApplication.CreateBuilder(args);
+
 builder.Services.AddAuthentication().AddCookie("opa23.onlineauction.cars");
-builder.Services.AddAuthorizationBuilder().AddPolicy("admin_route", policy => policy.RequireRole("admin"));
-builder.Services.AddAuthorizationBuilder().AddPolicy("user_route", policy => policy.RequireRole("user"));
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("admin_route", policy => policy.RequireRole("admin"));
+    options.AddPolicy("user_route", policy => policy.RequireRole("user"));
+});
+// Refactored above
+// builder.Services.AddAuthorizationBuilder().AddPolicy("admin_route", policy => policy.RequireRole("admin"));
+// builder.Services.AddAuthorizationBuilder().AddPolicy("user_route", policy => policy.RequireRole("user"));
 
 string connectionString = "server=localhost;uid=root;pwd=mypassword;database=onlineauction;port=3306";
+builder.Services.AddScoped(_ => new ApplicationDbContext(connectionString));
+builder.WebHost.ConfigureKestrel(serverOptions =>
+{
+    serverOptions.ListenAnyIP(3008);
+});
+
+
 
 try
 {
-
-    builder.Services.AddSingleton(new State(connectionString));
-
-    builder.WebHost.ConfigureKestrel(serverOptions =>
-    {
-        serverOptions.ListenAnyIP(3008);
-    });
     var app = builder.Build();
-
+    // builder.Services.AddSingleton(new State(connectionString)); ///    <-- Uses ApplicationDbContext instead
 
     var distPath = Path.Combine(app.Environment.ContentRootPath, "./dist");
     var fileProvider = new PhysicalFileProvider(distPath);
@@ -45,6 +53,7 @@ try
     app.MapPost("/api/login", Auth.Login);
     app.MapGet("/api/admin", () => "Hello, Admin!").RequireAuthorization("admin_route");
     app.MapGet("/api/user", () => "Hello, User!").RequireAuthorization("user_route");
+
 
     //users
     app.MapGet("/api/users", Users.All);

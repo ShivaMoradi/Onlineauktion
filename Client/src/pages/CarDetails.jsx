@@ -9,7 +9,7 @@ function CarDetail() {
   const { id } = useParams();
   let numberId = parseInt(id);
   console.log(id);
-  console.log(carItem);
+  console.log(carItem);git 
   const carId = carItem.find((car) => car.id === numberId);
   console.log("CarId", carId);
   return (
