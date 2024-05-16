@@ -1,6 +1,7 @@
 import { createContext, useState, useEffect } from "react";
 
 const GlobalContext = createContext();
+const API_CAR_URL_HOME = "api/cars/home";
 const API_CAR_URL = "/api/cars";
 const API_USER_URL = "/api/users";
 const API_AUTION_URL = "/api/auctions";
@@ -19,7 +20,7 @@ function GlobalProvider({ children }) {
   useEffect(() => {
     const fetchItems = async () => {
       try {
-        const response = await fetch(API_CAR_URL);
+        const response = await fetch(API_CAR_URL_HOME);
         const responseDuration = await fetch(API_AUTION_URL);
 
         if (!response.ok && !responseDuration.ok)
@@ -56,6 +57,8 @@ function GlobalProvider({ children }) {
     if (carItem.length > 0) {
       fetchDurations();
     }
+
+    console.log("APICARITEM", carItem);
   }, [carItem]);
 
   return (

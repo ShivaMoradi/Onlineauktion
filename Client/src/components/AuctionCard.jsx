@@ -39,6 +39,7 @@ const renderer = ({ days, hours, minutes, props }) => {
 const AuctionCard = ({ item }) => {
   console.log("Item", item);
   let expiredDate = new Date(item.duration).getTime();
+
   console.log("ExpireTime", expiredDate);
 
   return <Countdown date={expiredDate} item={item} renderer={renderer} />;
