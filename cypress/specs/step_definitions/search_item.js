@@ -1,7 +1,11 @@
 import { Given, When, Then } from "@badeball/cypress-cucumber-preprocessor";
 
-When("I enter {string} into the search box", (a) => {
-  cy.get("#search").type("Nissan");
+Given("Hope Page", () => {
+  cy.visit("/");
+});
+
+When("I enter {string} into the search box", (str) => {
+  cy.get("#search").type(str);
 });
 
 Then("I should see only cars with the brand {string} in the result", (a) => {
