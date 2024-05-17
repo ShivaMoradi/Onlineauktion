@@ -13,7 +13,7 @@ function Login() {
     const username = formData.get("username");
     const password = formData.get("password");
 
-    const response = await fetch("/api/users");
+    const response = await fetch("/api/login");
     const users = await response.json();
 
     const user = users.find(
