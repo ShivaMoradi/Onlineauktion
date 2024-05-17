@@ -13,33 +13,19 @@ function Login() {
     const username = formData.get("username");
     const password = formData.get("password");
 
-    const response = await fetch("/api/users");
-    const users = await response.json();
+    const body = JSON.stringify({ username, password });
+    const res = await fetch("api/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: body,
+    });
 
-    const user = users.find(
-      (user) => user.username === username && user.password === password
-    );
-
-    if (user) {
-     
-      
-      const res = await fetch("api/login",{
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify(user)
-      } )
-
-      
-      console.log('USER: ',user)
-      console.log('RESPONSE: ',res)
-
-      if(res.ok){
-        login(user);
-        navigate("/");
-      }
-      
+    if (res.ok) {
+      const user = await res.json();
+      login(user);
+      navigate("/");
     } else {
-      //  console.log(user, 'Failed to login')
+      console.error("Failed to login");
     }
   };
 

@@ -112,6 +112,7 @@ try
 
 catch (MySqlException e)
 {
+
     Console.WriteLine(e);
 }
 
