@@ -82,8 +82,8 @@ VALUES
 -- Insert data into auctions table
 INSERT INTO onlineauction.auctions (id, title, startTime, endTime, highestBid, carId, userId, status)
 VALUES
-    (1, 'Toyota Corolla Auction', '2024-02-28 11:35:01', '2024-04-28 11:45:01', 220000, 1, 2, 0),
-    (2, 'Honda Civic Auction', '2024-02-28 13:20:21', '2024-04-28 13:30:01', 12378932, 2, 1, 0),
-    (3, 'Ford F-150 Auction', '2024-02-28 14:05:00', '2024-04-28 15:00:01', 1232000, 3, 3, 0),
-    (4, 'Chevrolet Malibu Auction', '2024-02-28 10:30:01', '2024-03-28 11:50:01', 110000, 4, 5, 0),
-    (5, 'Nissan Altima Auction', '2024-02-28 08:15:01', '2024-03-16 10:00:01', 300000, 5, 4, 0);
+    (1, 'Toyota Corolla Auction', '2024-02-28 11:35:01', '2024-06-28 11:45:01', 220000, 1, 2, 0),
+    (2, 'Honda Civic Auction', '2024-02-28 13:20:21', '2024-06-28 13:30:01', 12378932, 2, 1, 0),
+    (3, 'Ford F-150 Auction', '2024-02-28 14:05:00', '2024-06-28 15:00:01', 1232000, 3, 3, 0),
+    (4, 'Chevrolet Malibu Auction', '2024-02-28 10:30:01', '2024-06-28 11:50:01', 110000, 4, 5, 0),
+    (5, 'Nissan Altima Auction', '2024-02-28 08:15:01', '2024-06-16 10:00:01', 300000, 5, 4, 0);
