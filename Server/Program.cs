@@ -40,12 +40,12 @@ try
     });
 
     app.UseRouting();
-    
+
     // Use authentication middleware
     app.UseAuthentication();
 
     // Use authorization middleware
-    app.UseAuthorization()
+    app.UseAuthorization();
 
     app.MapPost("/api/login", Auth.Login);
     app.MapGet("/api/admin", () => "Hello, Admin!").RequireAuthorization("admin_route");
