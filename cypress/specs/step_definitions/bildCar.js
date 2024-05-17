@@ -2,7 +2,7 @@ import { Given, When, Then } from "@badeball/cypress-cucumber-preprocessor";
 
 Given("I am logged in as a user", () => {
   cy.visit("/registering-page");
-  cy.login("john", "123_John");
+  cy.login("Desmond", "234_desmond");
 });
 
 Given("I am on the home page", (a) => {
