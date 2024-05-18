@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Onlineauction.Interfaces;
 using Onlineauction.Models;
+using Server.Dtos.User;
+using Server.Mappers;
 
 namespace Server.Controllers
 {
@@ -14,6 +16,19 @@ namespace Server.Controllers
         {
             _userRepository = userRepository;
         }
+
+
+        [HttpPost]
+        public async Task<IActionResult> CreateUser([FromBody] CreateUserDto userDto)
+        {
+
+            var userModel = userDto.ToUserFromCreate();
+            int id = await _userRepository.AddUserReturnIdAsync(userModel);
+            userModel.Id = id;
+
+            return CreatedAtAction(nameof(GetUserById), new { id = userModel.Id}, userModel.ToUserDto());
+        }
+
 
 
         [HttpGet]
@@ -40,28 +55,28 @@ namespace Server.Controllers
 
         [HttpPatch]
         [Route("{id:int}")]
-        public async Task<IActionResult> UpdateUser(int id, [FromBody] User user)
+        public async Task<IActionResult> UpdateUser(int id, [FromBody] UpdateUserDto userDto)
         {
-            if (user == null || user.Id != id)
+            var updatedUser = await _userRepository.UpdateUserAsync(id, userDto);
+
+            if(updatedUser == null)
             {
-                return BadRequest();
+                return NotFound();
             }
-            await _userRepository.UpdateUserAsync(user);
-            var updatedUser = GetUserById(id);
-            return Ok(updatedUser);
+            return Ok(updatedUser); // change
         }
 
 
         [HttpDelete("{id:int}")]
         public async Task<IActionResult> DeleteUser(int id)
         {
-            var user = GetUserById(id);
-            if (user == null) 
+
+            if (!await _userRepository.UserExists(id)) 
             {
-                return BadRequest("User not found");
+                return NotFound();
             }
 
-            _userRepository.DeleteUserAsync(id);
+            await _userRepository.DeleteUserAsync(id);
             return NoContent();
         }
    

@@ -5,6 +5,7 @@ using Server.Data;
 using Onlineauction.Interfaces;
 using Server.Repository;
 using Microsoft.OpenApi.Models;
+using Server.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -34,6 +35,7 @@ builder.Services.AddScoped(_ => new ApplicationDbContext(connectionString)); ///
 
 // Adding Repositories
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<ICarRepository, CarRepository>();
 
 //////builder.WebHost.ConfigureKestrel(serverOptions =>
 //////{
@@ -84,4 +86,4 @@ catch (MySqlException e)
     Console.WriteLine(e);
 }
 
-//public record State(string DB);
+

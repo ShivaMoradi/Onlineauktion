@@ -194,7 +194,7 @@
 //     new("@imageUrl", car.imageUrl),
 //     new("@mileage", car.mileage),
 //     new("@engine_type", car.engine_type),
-//     new("@engine_displaceme nt", car.engine_displacement),
+//     new("@engine_displacement", car.engine_displacement),
 //     new("@transmission", car.transmission),
 //     new("@features", car.features)]
 

@@ -3,6 +3,7 @@ using Onlineauction;
 using Onlineauction.Interfaces;
 using Onlineauction.Models;
 using Server.Data;
+using Server.Dtos.User;
 using System.Data;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
@@ -16,19 +17,22 @@ namespace Server.Repository
             _context = context;
         }
 
-        public async Task AddUserAsync(User user)
+        public async Task<int> AddUserReturnIdAsync(User userDto)
         {
-            string query = "INSERT INTO users (Username, Password, Email, Name, Role) VALUES (@Username, @Password, @Email, @Name, @Role)";
+            string query = @"
+            INSERT INTO users (Username, Password, Email, Name, Role) 
+            VALUES (@Username, @Password, @Email, @Name, @Role); 
+            SELECT LAST_INSERT_ID();";
 
             using (var command = new MySqlCommand(query, _context.Connection))
             {
-                command.Parameters.AddWithValue("@Username", user.Username);
-                command.Parameters.AddWithValue("@Password", user.Password);
-                command.Parameters.AddWithValue("@Email", user.Email);
-                command.Parameters.AddWithValue("@Name", user.Name);
-                command.Parameters.AddWithValue("@Role", user.Role);
+                command.Parameters.AddWithValue("@Username", userDto.Username);
+                command.Parameters.AddWithValue("@Password", userDto.Password);
+                command.Parameters.AddWithValue("@Email", userDto.Email);
+                command.Parameters.AddWithValue("@Name", userDto.Name);
+                command.Parameters.AddWithValue("@Role", userDto.Role);
 
-                await command.ExecuteNonQueryAsync();
+                return Convert.ToInt32(await command.ExecuteScalarAsync());
             }
         }
 
@@ -43,7 +47,6 @@ namespace Server.Repository
                 command.Parameters.AddWithValue("@id", id);
                 await command.ExecuteNonQueryAsync();
             }
-
         }
 
 
@@ -100,24 +103,40 @@ namespace Server.Repository
                         };
                         return user;
                     }
-                    return null;
                 }
             }
+            return null;
         }
 
-        public async Task UpdateUserAsync(User user)
+        public async Task<User?> UpdateUserAsync(int id, UpdateUserDto userDto)
         {
-            string strQuery = "UPDATE users SET username = @username, password = @password, email = @email, name = @name, role = @role WHERE id = @id";
+            string strQuery = @"
+            UPDATE users 
+            SET username = @username, password = @password, email = @email, name = @name, role = @role 
+            WHERE id = @id";
 
             using (var command = new MySqlCommand(strQuery, _context.Connection))
             {
-                command.Parameters.AddWithValue("@id", user.Id);
-                command.Parameters.AddWithValue("@username", user.Username);
-                command.Parameters.AddWithValue("@password", user.Password);
-                command.Parameters.AddWithValue("@email", user.Email);
-                command.Parameters.AddWithValue("@name", user.Name);
-                command.Parameters.AddWithValue("@role", user.Role);
+                command.Parameters.AddWithValue("@username", userDto.Username);
+                command.Parameters.AddWithValue("@password", userDto.Password);
+                command.Parameters.AddWithValue("@email", userDto.Email);
+                command.Parameters.AddWithValue("@name", userDto.Name);
+                command.Parameters.AddWithValue("@role", userDto.Role);
+                command.Parameters.AddWithValue("@id", id);
                 await command.ExecuteNonQueryAsync();   
+            }
+            return await GetUserByIdAsync(id);
+        }
+
+        public async Task<bool> UserExists(int id)
+        {
+            string query = "SELECT COUNT(1) FROM users WHERE id = @id";
+
+            using (var command = new MySqlCommand(query, _context.Connection))
+            {
+                command.Parameters.AddWithValue("@id", id);
+                var count = Convert.ToInt32(await command.ExecuteScalarAsync());
+                return count > 0;
             }
         }
     }
